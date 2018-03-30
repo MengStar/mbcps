@@ -9,8 +9,6 @@ eureka:
      instance:
         statusPageUrlPath: /actuator/info
         healthCheckUrlPath: /actuator/health
-        prefer-ip-address: true
-
      client:
         registerWithEureka: true
         fetchRegistry: true
