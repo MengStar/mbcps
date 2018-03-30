@@ -1,9 +1,8 @@
 spring:
     application:
         name: mb-center
-
 server:
-    port: 8001 #启动端口
+    port: 8761 #启动端口
 
 eureka:
     client:
