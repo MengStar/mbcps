@@ -14,4 +14,3 @@ eureka:
         fetchRegistry: true
         serviceUrl:
           defaultZone: http://${EUREKA_HOST:aliyun}:${EUREKA_PORT:8761}/eureka/
-
