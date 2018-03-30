@@ -1,0 +1,18 @@
+spring:
+    application:
+        name: ace-monitor
+
+server:
+    port: 8764 #启动端口
+
+eureka:
+     instance:
+        statusPageUrlPath: /actuator/info
+        healthCheckUrlPath: /actuator/health
+
+     client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+          defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+
