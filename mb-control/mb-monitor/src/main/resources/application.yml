@@ -9,10 +9,11 @@ eureka:
      instance:
         statusPageUrlPath: /actuator/info
         healthCheckUrlPath: /actuator/health
+        prefer-ip-address: true
 
      client:
         registerWithEureka: true
         fetchRegistry: true
         serviceUrl:
-          defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+          defaultZone: http://${EUREKA_HOST:aliyun}:${EUREKA_PORT:8761}/eureka/
 
