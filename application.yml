@@ -1,7 +1,4 @@
 eureka:
-     instance:
-        statusPageUrlPath: /actuator/info
-        healthCheckUrlPath: /actuator/health
      client:
         registerWithEureka: true
         fetchRegistry: true
