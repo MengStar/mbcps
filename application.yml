@@ -1,14 +1,7 @@
 eureka:
-<<<<<<< HEAD
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/
-=======
-     client:
-        registerWithEureka: true
-        fetchRegistry: true
-        serviceUrl:
-          defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/
->>>>>>> ae54226fd21ac24a5a3efc86756dbed75461e0a5
+
