@@ -25,7 +25,6 @@
         <module>mb-center</module>
         <module>mb-control</module>
         <module>mb-config</module>
-        <module>config-repo</module>
     </modules>
     <!--依赖管理，用于管理spring-cloud的依赖，其中Camden.SR3是版本号-->
     <dependencyManagement>
