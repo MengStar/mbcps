@@ -1,8 +1,0 @@
-spring:
-    application:
-        name: mb-monitor
-    cloud:
-      config:
-        uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_PORT:8888}
-server:
-    port: 8764 #启动端口
