@@ -6,6 +6,7 @@
     <modules>
         <module>mb-center</module>
         <module>mb-config</module>
+        <module>test</module>
     </modules>
     <groupId>meng.xing</groupId>
     <artifactId>mbcps</artifactId>

@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: mb-cdsada
+
+
+server:
+  port: 8881
+
+
+
+
+
