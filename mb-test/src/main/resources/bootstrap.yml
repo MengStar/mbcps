@@ -1,0 +1,13 @@
+spring:
+    application:
+        name: mb-test
+    cloud:
+      config:
+        uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8888}
+server:
+  port: 8123
+
+
+
+
+
