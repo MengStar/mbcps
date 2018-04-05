@@ -3,7 +3,7 @@
 #服务注册中心配置
 eureka:
   client:
-    fetchRegistry: flse #客户端不需要同步配置
+    fetchRegistry: false #客户端不需要同步配置
     serviceUrl:
       defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/
 
