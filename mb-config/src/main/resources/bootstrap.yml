@@ -5,8 +5,14 @@ spring:
       config:
         server:
           git:
-            uri: https://github.com/MengStar/mbcps
+            uri: https://github.com/MengStar/mbcps/config-repo
 server:
   port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/ #eureka服务注册地址
+
 
 

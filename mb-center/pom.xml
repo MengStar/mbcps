@@ -8,8 +8,6 @@
     <packaging>jar</packaging>
 
     <name>mb-center</name>
-    <description>Demo project for Spring Boot</description>
-
     <parent>
         <groupId>meng.xing</groupId>
         <artifactId>mbcps</artifactId>
