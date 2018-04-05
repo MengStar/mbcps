@@ -4,10 +4,10 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-center
     ports:
       - "8761:8761"
-  monitor:
-    image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-monitor
+  config:
+    image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-config
     ports:
-      - "8764:8764"
+      - "8888:8888"
     depends_on:
       - eureka
     environment:
