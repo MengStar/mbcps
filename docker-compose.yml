@@ -2,15 +2,12 @@ version: '2'
 services:
   eureka:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-center
-#    ports:
-#      - "8761:8761"
+    ports:
+      - "8761:8761"
   config:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-config
-#    不对外开放8888端口
-#    ports:
-#      - "8888:8888"
-    expose:
-      - "8888"
+    ports:
+      - "8888:8888"
     depends_on:
       - eureka
     environment:
