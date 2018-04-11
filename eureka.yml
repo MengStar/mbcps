@@ -9,7 +9,8 @@ services:
     ports:
       - "8761:8761"
     environment:
-      - EUREKA_SERVER_LIST=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+
   eureka2:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-center
     networks:
@@ -19,7 +20,8 @@ services:
     ports:
       - "8762:8761"
     environment:
-      - EUREKA_SERVER_LIST=http://eureka1:8761/eureka/,http://eureka3:8761/eureka/
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka1:8761/eureka/,http://eureka3:8761/eureka/
+
   eureka3:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-center
     networks:
@@ -29,7 +31,8 @@ services:
     ports:
       - "8763:8761"
     environment:
-      - EUREKA_SERVER_LIST=http://eureka1:8761/eureka/,http://eureka3:8761/eureka/
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka1:8761/eureka/,http://eureka2:8761/eureka/
+
 networks:
   springcloud-overlay:
     external:

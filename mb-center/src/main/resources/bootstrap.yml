@@ -1,9 +1,21 @@
+#server.port=8761
+#
+#eureka.instance.hostname=localhost
+#
+#eureka.client.registerWithEureka=false
+#eureka.client.fetchRegistry=false
+#eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/,${ADDITIONAL_EUREKA_SERVER_LIST}
 spring:
-    application:
-        name: mb-center
+  application:
+    name: mb-center
 server:
-    port: 8761 #启动端口
+  port: 8761
 eureka:
-    client:
-        serviceUrl:
-          defaultZon: ${ADDITIONAL_EUREKA_SERVER_LIST}
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/,${ADDITIONAL_EUREKA_SERVER_LIST}
+

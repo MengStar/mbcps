@@ -11,10 +11,6 @@ server:
 
 eureka:
   client:
-    registerWithEureka: true
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/ #eureka服务注册地址
-
-
-
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http\://localhost\:8761/eureka/}
