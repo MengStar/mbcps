@@ -1,0 +1,36 @@
+version: '3'
+services:
+ mysql:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/mysql
+  restart: always
+  ports:
+   - "3306:3306"
+  environment:
+   MYSQL_ROOT_PASSWORD: password
+
+ redis:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/redis
+  restart: always
+  ports:
+   - "6379:6379"
+
+ mongo:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/mongo
+  restart: always
+  ports:
+   - "27019:27019"
+
+ rabbitmq:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/rabbitmq
+  restart: always
+  ports:
+   - "5672:5672"
+   - "15672:15672"
+   - "25672:25672"
+   - "4369:4369"
+   - "9100:9100"
+   - "9105:9105"
+   - "9104:9104"
+   - "9103:9103"
+   - "9102:9102"
+   - "9101:9101"

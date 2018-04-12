@@ -1,0 +1,16 @@
+version: '3'
+services:
+  server:
+    image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-config
+    deploy:
+      replicas: 1
+    networks:
+      - springcloud-overlay
+    ports:
+      - "8888:8888"
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+networks:
+  springcloud-overlay:
+    external:
+      name: springcloud-overlay
