@@ -61,7 +61,7 @@
                     </resources>
                 </configuration>
             </plugin>
-            <!--springboot打包插件-->
+            <!--spring boot打包插件，主要是使用repackage-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
