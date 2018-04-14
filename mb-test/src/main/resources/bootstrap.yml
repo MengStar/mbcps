@@ -3,7 +3,7 @@ spring:
         name: mb-test
     cloud:
       config:
-        uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8888}/
+        uri: http://${CONFIG_HOST:aliyun.com}:${CONFIG_POST:8888}/
         fail-fast: true # 开启之后可以快速重试
         retry:
           multiplier: 2 # 间隔乘数
