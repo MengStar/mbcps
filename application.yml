@@ -4,7 +4,8 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://aliyun.com:8761/eureka/}
+      defaultZone: www.baidu.com
+#      ${EUREKA_SERVER_ADDRESS:http://aliyun.com:8761/eureka/}
 
 management:
   security:
