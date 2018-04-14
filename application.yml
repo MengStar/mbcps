@@ -5,7 +5,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://aliyun.com:8761/eureka/}
-
-management:
-  security:
-    enabled: false
