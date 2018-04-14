@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 docker pull registry.cn-hangzhou.aliyuncs.com/mengstar/mongo:latest &&
 docker pull registry.cn-hangzhou.aliyuncs.com/mengstar/redis:latest &&
 docker pull registry.cn-hangzhou.aliyuncs.com/mengstar/mysql:latest &&

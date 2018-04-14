@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo `docker network create -d overlay springcloud-overlay` &&
 cd docker &&
 docker stack deploy -c db.yml db           &&
