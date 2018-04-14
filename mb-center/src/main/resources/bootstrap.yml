@@ -12,8 +12,10 @@ server:
   port: 8761
 eureka:
   client:
-    register-with-eureka: false
+    register-with-eureka: true
     fetch-registry: false
     service-url:
       defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://127.0.0.1:8761/eureka/}
+  server:
+    renewal-percent-threshold: 0.51
 
