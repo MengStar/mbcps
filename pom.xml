@@ -8,6 +8,7 @@
         <module>mb-config</module>
         <module>mb-test</module>
     </modules>
+
     <groupId>meng.xing</groupId>
     <artifactId>mbcps</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -18,6 +19,11 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.M8</spring-cloud.version>
         <docker.image.prefix>registry.cn-hangzhou.aliyuncs.com/mengstar</docker.image.prefix>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
 
     <parent>
