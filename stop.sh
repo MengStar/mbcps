@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-docker stack rm  db       &&
+docker stack rm  base       &&
 docker stack rm  center   &&
 docker stack rm  config

@@ -1,0 +1,94 @@
+version: '3'
+services:
+ mysql:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/mysql
+  restart: always
+  networks:
+   - data-overlay
+  ports:
+   - "3306:3306"
+  environment:
+   MYSQL_ROOT_PASSWORD: password
+
+ redis:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/redis
+  restart: always
+  networks:
+   - data-overlay
+  ports:
+   - "6379:6379"
+
+ mongo:
+  image: registry.cn-hangzhou.aliyuncs.com/mengstar/mongo
+  restart: always
+  networks:
+   - data-overlay
+  ports:
+   - "27019:27019"
+
+# rabbitmq:
+#  image: registry.cn-hangzhou.aliyuncs.com/mengstar/rabbitmq
+#  restart: always
+#  networks:
+#   - data-overlay
+#  ports:
+#   - "5672:5672"
+#   - "15672:15672"
+#   - "25672:25672"
+#   - "4369:4369"
+#   - "9100:9100"
+#   - "9105:9105"
+#   - "9104:9104"
+#   - "9103:9103"
+#   - "9102:9102"
+#   - "9101:9101"
+
+ zookeeper:
+  image: registry.aliyuncs.com/denverdino/zookeeper:3.4.8
+  restart: always
+  networks:
+   - data-overlay
+  ports:
+   - "2181:2181"
+
+#   kafka 配置开始***************************************
+ ui:
+  image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
+  command: ui -c nimbus.host=nimbus
+  environment:
+   - STORM_ZOOKEEPER_SERVERS=zookeeper
+  restart: always
+  networks:
+   - data-overlay
+  ports:
+   - 8080:8080
+  depends_on:
+   - nimbus
+
+  nimbus:
+   image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
+   command: nimbus -c nimbus.host=nimbus
+   restart: always
+   environment:
+    - STORM_ZOOKEEPER_SERVERS=zookeeper
+   networks:
+    - data-overlay
+   ports:
+    - 6627:6627
+
+ supervisor:
+  image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
+  command: supervisor -c nimbus.host=nimbus -c supervisor.slots.ports=[6700,6701,6702,6703，6704]
+  restart: always
+  networks:
+   - data-overlay
+  environment:
+   - STORM_ZOOKEEPER_SERVERS=zookeeper
+  depends_on:
+   - nimbus
+#   kafka 配置结束***************************************
+
+networks:
+  data-overlay:
+    external:
+      name: data-overlay
