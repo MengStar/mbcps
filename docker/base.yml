@@ -71,7 +71,7 @@ services:
       - 6627:6627
   supervisor:
     image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
-    command: supervisor -c nimbus.host=nimbus -c supervisor.slots.ports=[6700,6701,6702,6703，6704]
+    command: supervisor -c nimbus.host=nimbus -c supervisor.slots.ports=[6700,6701,6702,6703,6704]
     restart: always
     networks:
       - data-overlay
