@@ -32,7 +32,7 @@ services:
       - data-overlay
     ports:
       - "6379:6379"
-   mongo:
+  mongo:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mongo
     restart: always
     networks:
