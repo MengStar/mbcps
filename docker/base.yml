@@ -32,7 +32,7 @@ services:
       - data-overlay
     ports:
       - "6379:6379"
-   mongo:
+  mongo:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mongo
     restart: always
     networks:
@@ -46,7 +46,7 @@ services:
       - data-overlay
     ports:
       - "2181:2181"
-#   kafka 配置开始***************************************kafka 配置开始
+
   ui:
     image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
     command: ui -c nimbus.host=nimbus
@@ -71,7 +71,7 @@ services:
       - 6627:6627
   supervisor:
     image: registry.aliyuncs.com/denverdino/baqend-storm:1.0.0
-    command: supervisor -c nimbus.host=nimbus -c supervisor.slots.ports=[6700,6701,6702,6703，6704]
+    command: supervisor -c nimbus.host=nimbus -c supervisor.slots.ports=[6700,6701,6702,6703,6704]
     restart: always
     networks:
       - data-overlay
@@ -79,7 +79,7 @@ services:
       - STORM_ZOOKEEPER_SERVERS=zookeeper
     depends_on:
       - nimbus
-#   kafka 配置结束***************************************kafka 配置结束
+
 networks:
   data-overlay:
     external:
