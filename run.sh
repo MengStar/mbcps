@@ -5,5 +5,6 @@ cd docker &&
 #docker stack deploy -c base.yml base      &&
 docker stack deploy -c center.yml center   &&
 docker stack deploy -c config.yml config   &&
+docker stack deploy -c mb.yml mb   &&
 cd ../ &&
 docker stack ls

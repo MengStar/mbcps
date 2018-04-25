@@ -1,0 +1,20 @@
+spring:
+    application:
+        name: mb-gateway
+    cloud:
+      config:
+        uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8888}/
+        fail-fast: true # 开启之后可以快速重试
+        retry:
+          multiplier: 2 # 间隔乘数
+          max-interval: 8000 # 最大间隔时间
+          max-attempts: 8 # 最大尝试次数
+server:
+  port: 8400
+
+
+
+
+
+
+
