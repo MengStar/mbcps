@@ -12,7 +12,7 @@ import java.time.Duration;
 @RestController
 public class HelloController {
     @GetMapping("/hello/{latency}")
-    public Flux<String> hello(@PathVariable int latency) {
-        return Flux.just("Welcome to reactive world ~","1","2","3").log();
+    public Flux<String> hello(@PathVariable String latency) {
+        return Flux.just(latency + " ! Welcome to reactive world ~", "1", "2", "3").log();
     }
 }
