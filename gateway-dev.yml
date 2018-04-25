@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    test:
+      path: /test/*
+      url: http://www.baidu.com/
