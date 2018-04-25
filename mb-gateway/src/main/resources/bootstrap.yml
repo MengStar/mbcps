@@ -13,6 +13,10 @@ spring:
         profile: dev
 server:
   port: 8400
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://127.0.0.1:8761/eureka/}
 
 
 
