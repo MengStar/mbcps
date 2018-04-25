@@ -5,7 +5,7 @@ zuul:
       url: http://www.baidu.com/
      config:
       path: /config
-      service-id: mb-config
+      serviceId: mb-config
      my-test:
-      path: /config
-      service-id: mb-test
+      path: /my-test
+      serviceId: mb-test
