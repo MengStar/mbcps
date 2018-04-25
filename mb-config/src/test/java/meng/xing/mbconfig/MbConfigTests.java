@@ -1,4 +1,4 @@
-package meng.xing.mbcenter;
+package meng.xing.mbconfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MbCenterBootstrapTests {
+public class MbConfigTests {
 
 	@Test
 	public void contextLoads() {

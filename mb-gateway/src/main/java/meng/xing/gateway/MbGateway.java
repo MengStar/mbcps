@@ -8,8 +8,8 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
-public class MbGatewayBootstrap {
+public class MbGateway {
     public static void main(String[] args) {
-        SpringApplication.run(MbGatewayBootstrap.class);
+        SpringApplication.run(MbGateway.class);
     }
 }
