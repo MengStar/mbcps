@@ -13,7 +13,7 @@ public class IndexController {
     @RequestMapping(value = "/index")
     public String index(Model  model)
     {
-        Person single = new Person("hyj",21);
+        Person single = new Person("刘星",21);
         List<Person> people = new ArrayList<>();
         Person p1 = new Person("dlp",21);
         Person p2 = new Person("tq",21);
