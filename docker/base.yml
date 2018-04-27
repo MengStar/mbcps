@@ -38,7 +38,7 @@ services:
     networks:
       - data-overlay
     ports:
-      - "27019:27019"
+      - "27017:27017"
   zookeeper:
     image: registry.aliyuncs.com/denverdino/zookeeper:3.4.8
     restart: always
