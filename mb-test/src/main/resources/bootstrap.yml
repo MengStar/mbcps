@@ -9,12 +9,6 @@ spring:
           multiplier: 2 # 间隔乘数
           max-interval: 8000 # 最大间隔时间
           max-attempts: 8
-    resources:
-      chain:
-        strategy:
-          content:
-            enabled: true
-            paths: /**
 server:
   port: 8123
 logging:

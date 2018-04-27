@@ -11,4 +11,5 @@ public class HelloController {
     public Flux<String> hello(@PathVariable String latency) {
         return Flux.just(latency + " ! Welcome to reactive world ~", "1", "2", "3").log();
     }
+
 }

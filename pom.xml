@@ -8,6 +8,7 @@
         <module>mb-config</module>
         <module>mb-test</module>
         <module>mb-gateway</module>
+        <module>mb-web-test</module>
     </modules>
 
     <groupId>meng.xing</groupId>
