@@ -15,13 +15,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class RedisTest {
     @Autowired
     private ReactiveRedisTemplate<String, String> template;
-    private final static Logger logger = LoggerFactory.getLogger(RedisTest.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RedisTest.class);
 
     @Test
     public void testRedis() {
-        logger.info("开始测试非阻塞的redis");
-        logger.info("发送字符串...");
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("开始测试非阻塞的redis");
+            LOGGER.info("发送字符串...");
+        }
         template.opsForList().leftPush("test", "redisTestString").log().subscribe();
-        logger.info("字符串数量：" + template.opsForList().size("test").block()); //因为是测试，采用阻塞的方法
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("字符串数量：" + template.opsForList().size("test").block()); //因为是测试，采用阻塞的方法
+        }
     }
 }

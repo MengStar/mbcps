@@ -1,8 +1,8 @@
 package meng.xing.mbcps;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 @Configuration
 public class RedisConfig {
-    private final static Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
     @Value("${redis.host}")
     String redisHost;
     @Value("${redis.port}")
@@ -29,7 +29,9 @@ public class RedisConfig {
 
     @Bean
     ReactiveRedisTemplate<String, String> reactiveRedisTemplate(ReactiveRedisConnectionFactory connectionFactory) {
-        logger.info("获取ReactiveRedisTemplate：" + redisHost + ":" + redisPort);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("获取ReactiveRedisTemplate：" + redisHost + ":" + redisPort);
+        }
         return new ReactiveRedisTemplate<>(connectionFactory, RedisSerializationContext.string());
     }
 }

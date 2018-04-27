@@ -12,4 +12,4 @@ spring:
 server:
   port: 8123
 logging:
-  file: mb-test.log
+  file: log/mb-test.log
