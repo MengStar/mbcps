@@ -11,3 +11,5 @@ spring:
           max-attempts: 8 # 最大尝试次数
 server:
   port: 8123
+logging:
+  file: mb-test.log

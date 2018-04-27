@@ -13,3 +13,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://127.0.0.1:8761/eureka/}
+logging:
+  file: log/mb-config.log

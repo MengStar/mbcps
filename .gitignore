@@ -10,5 +10,5 @@ ace-modules/ace-tool/src/main/resources/application-dev.yml
 .mvn/
 mvnw
 mvnw.cmd
-
+log/
 .DS_Store

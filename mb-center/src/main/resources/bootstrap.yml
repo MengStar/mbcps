@@ -18,4 +18,6 @@ eureka:
       defaultZone: ${ADDITIONAL_EUREKA_SERVER_LIST:http://127.0.0.1:8761/eureka/}
   server:
     renewal-percent-threshold: 0.51
+logging:
+  file: log/mb-center.log
 

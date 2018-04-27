@@ -13,6 +13,8 @@ spring:
         profile: dev
 server:
   port: 8400
+logging:
+  file: log/mb-gateway.log
 
 
 
