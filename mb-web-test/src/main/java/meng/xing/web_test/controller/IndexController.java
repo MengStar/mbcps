@@ -1,4 +1,4 @@
-package meng.xing.web_test;
+package meng.xing.web_test.controller;
 
 import meng.xing.web_test.Model.Person;
 import org.springframework.stereotype.Controller;
