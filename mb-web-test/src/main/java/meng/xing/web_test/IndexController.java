@@ -10,7 +10,7 @@ import java.util.List;
 
 @Controller
 public class IndexController {
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/",produces = "text/html;charset=UTF-8")
     public String index(Model  model)
     {
         Person single = new Person("刘星",21);
