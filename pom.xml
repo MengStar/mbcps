@@ -9,6 +9,7 @@
         <module>mb-test</module>
         <module>mb-gateway</module>
         <module>mb-web-test</module>
+        <module>mb-user</module>
     </modules>
 
     <groupId>meng.xing</groupId>
