@@ -1,14 +1,13 @@
 package meng.xing.user.service;
 
 import meng.xing.user.controller.Meta.RequestUser;
-import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.Role;
+import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.User;
 import meng.xing.user.repository.RoleRepository;
 import meng.xing.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.Date;
 import java.util.HashSet;
