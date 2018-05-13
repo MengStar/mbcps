@@ -38,12 +38,17 @@ public class UserServiceIml implements UserService {
 
     @Override
     public Optional<User> updateUser(User user) {
-        User oldUser = userRepository.findByUsername(user.getUsername());
-        if (oldUser != null) {
-            user.setId(oldUser.getId());
-            return Optional.of(userRepository.save(user));
+        try {
+            User oldUser = userRepository.findByUsername(user.getUsername());
+            if (oldUser != null) {
+                user.setId(oldUser.getId());
+                return Optional.of(userRepository.save(user));
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            return Optional.empty();
         }
-        return Optional.empty();
+
     }
 
     @Override

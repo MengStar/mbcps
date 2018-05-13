@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -34,8 +31,8 @@ public class User {
     private String password; //转json 忽略password
     @NotEmpty
     private String nickname;
-    @NotEmpty
-    private String isMain;
+    @NonNull
+    private boolean main;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createDate;
@@ -46,11 +43,11 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User(String username, String password, String nickname, String isMain) {
+    public User(String username, String password, String nickname, Boolean main) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        this.isMain = isMain;
+        this.main = main;
         createDate = new Date();
         lastPasswordResetDate = new Date();
     }
