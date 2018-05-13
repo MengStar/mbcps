@@ -9,14 +9,13 @@ spring:
           multiplier: 2 # 间隔乘数
           max-interval: 8000 # 最大间隔时间
           max-attempts: 8
-    jpa:
-      hibernate:
-        ddl-auto: create
-
+        name: user
+        profile: dev
 server:
   port: 8401
 logging:
   file: log/mb-user.log
   level:
     org:
-      hibernate: info
+      hibernate:
+        SQL: debug

@@ -8,22 +8,29 @@ import meng.xing.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class UserServiceIml implements UserService {
-    private final
-    UserRepository userRepository;
-    RoleRepository roleRepository;
-    private String username;
-    private Set<Role> roles;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
 
     @Autowired
     public UserServiceIml(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+    }
+
+    @Override
+    @Transactional
+    public Optional<User> addUser(User user) {
+        User _user = userRepository.findByUsername(user.getUsername());
+        return _user != null?  Optional.empty():Optional.of(userRepository.save(user));
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -40,7 +41,13 @@ public class UseController {
         String nickname = map.get("nickname").toString();
         String isMain = map.get("isMain").toString();
         User user = new User(username, password, nickname, isMain);
-        user = userService.saveUser(user);
+        Optional<User> optionalUser = userService.addUser(user);
+        if (!optionalUser.isPresent()){
+            if (LOGGER.isInfoEnabled())
+                LOGGER.info("注册用户失败：{}", user);
+            return new UserRetJson(username,nickname,isMain,"","-1","注册用户失败");
+        }
+        user = optionalUser.get();
         if (LOGGER.isInfoEnabled())
             LOGGER.info("注册用户保存基本信息：{}", user);
         Set<ROLETYPE> roles = new HashSet<>();
@@ -48,7 +55,7 @@ public class UseController {
         user = userService.setRoles(user.getId(), roles);
         if (LOGGER.isInfoEnabled())
             LOGGER.info("注册用户设置基本权限：{}", user);
-        return new UserRetJson(user.getUsername(), user.getNickname(), user.getIsMain(), "1", "1", "");
+        return new UserRetJson(user.getUsername(), user.getNickname(), user.getIsMain(), "", "1", "注册用户成功");
     }
 }
 

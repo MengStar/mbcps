@@ -1,0 +1,8 @@
+spring:
+    jpa:
+      hibernate:
+        ddl-auto: create
+    datasource:
+      url: jdbc:mysql://aliyun.com:3306/mbcps
+      data-username: root
+      data-password: password
