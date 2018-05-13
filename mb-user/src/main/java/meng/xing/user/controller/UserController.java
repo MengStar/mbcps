@@ -23,13 +23,13 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
-public class UseController {
+public class UserController {
 
     private final UserService userService;
-    private final static Logger LOGGER = LoggerFactory.getLogger(UseController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UseController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
