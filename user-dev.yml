@@ -6,3 +6,4 @@ spring:
       url: jdbc:mysql://aliyun.com:3306/mbcps
       data-username: root
       data-password: password
+      driver-class-name: com.mysql.jdbc.Driver
