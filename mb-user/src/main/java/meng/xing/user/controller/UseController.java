@@ -5,10 +5,7 @@ import lombok.Data;
 
 import lombok.NoArgsConstructor;
 import meng.xing.user.entity.ROLETYPE;
-import meng.xing.user.entity.Role;
 import meng.xing.user.entity.User;
-import meng.xing.user.repository.RoleRepository;
-import meng.xing.user.repository.UserRepository;
 import meng.xing.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
