@@ -1,6 +1,6 @@
 package meng.xing.user;
 
-import meng.xing.user.entity.ROLETYPE;
+import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.Role;
 import meng.xing.user.repository.RoleRepository;
 import org.slf4j.Logger;
@@ -28,9 +28,9 @@ public class InitDataBase implements CommandLineRunner {
             }
             return;
         }
-        roleRepository.save(new Role(ROLETYPE.ROLE_DEFAULT.toString()));
-        roleRepository.save(new Role(ROLETYPE.ROLE_DEVELOPER.toString()));
-        roleRepository.save(new Role(ROLETYPE.ROLE_ADMIN.toString()));
+        roleRepository.save(new Role(RoleType.ROLE_DEFAULT.toString()));
+        roleRepository.save(new Role(RoleType.ROLE_DEVELOPER.toString()));
+        roleRepository.save(new Role(RoleType.ROLE_ADMIN.toString()));
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("权限列表：{}", roleRepository.findAll());
         }

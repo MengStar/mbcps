@@ -1,6 +1,7 @@
 package meng.xing.user.service;
 
-import meng.xing.user.entity.ROLETYPE;
+import meng.xing.user.controller.Meta.RequestUser;
+import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.Role;
 import meng.xing.user.entity.User;
 import meng.xing.user.repository.RoleRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,7 +28,12 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public Optional<User> addUser(User user) {
+    public Optional<User> addUser(RequestUser requestUser) {
+        String username = requestUser.getUsername();
+        String password = requestUser.getPassword();
+        String nickname = requestUser.getNickname();
+        boolean isMain = requestUser.isMain();
+        User user = new User(username, password, nickname, isMain);
         try {
             user = userRepository.save(user);
             return Optional.of(user);
@@ -37,26 +44,28 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(User user) {
-        try {
-            User oldUser = userRepository.findByUsername(user.getUsername());
-            if (oldUser != null) {
-                user.setId(oldUser.getId());
-                return Optional.of(userRepository.save(user));
+    public Optional<User> updateUser(RequestUser requestUser) {
+
+        User oldUser = userRepository.findByUsername(requestUser.getUsername());
+        if (oldUser != null) {
+            if (!requestUser.getNickname().isEmpty()) oldUser.setNickname(requestUser.getNickname());
+            if (!requestUser.getPassword().isEmpty()) {
+                oldUser.setLastPasswordResetDate(new Date());
+                oldUser.setPassword(requestUser.getPassword());
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            return Optional.empty();
+            return Optional.of(userRepository.save(oldUser));
         }
+        return Optional.empty();
+
 
     }
 
     @Override
-    public User setRoles(Long id, Set<ROLETYPE> roles) {
+    public User setRoles(Long id, Set<RoleType> roles) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.get();
         Set<Role> _roles = new HashSet<>();
-        for (ROLETYPE role : roles
+        for (RoleType role : roles
                 ) {
             _roles.add(roleRepository.findByRole(role.toString()));
         }
