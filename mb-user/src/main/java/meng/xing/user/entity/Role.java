@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Entity //jpa的标签 根据字段，自动创表
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "role") //生成的表名
+@Table(name = "role")
 public class Role {
 
     @Id

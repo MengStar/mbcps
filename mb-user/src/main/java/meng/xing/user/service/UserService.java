@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
-    Optional<User> addUser(User user);
-    User saveUser(User user);
+    Optional<User> addUser(User user) throws Exception;
+    Optional<User> updateUser(User user);
     User setRoles(Long id,Set<ROLETYPE> roles);
 
 

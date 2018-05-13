@@ -8,7 +8,7 @@ import meng.xing.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,18 +26,24 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    @Transactional
     public Optional<User> addUser(User user) {
-        User _user = userRepository.findByUsername(user.getUsername());
-        return _user != null?  Optional.empty():Optional.of(userRepository.save(user));
+        try {
+            user = userRepository.save(user);
+            return Optional.of(user);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
 
     }
 
     @Override
-    public User saveUser(User user) {
-        User _user = userRepository.findByUsername(user.getUsername());
-        if (_user != null) user.setId(_user.getId());
-        return userRepository.save(user);
+    public Optional<User> updateUser(User user) {
+        User oldUser = userRepository.findByUsername(user.getUsername());
+        if (oldUser != null) {
+            user.setId(oldUser.getId());
+            return Optional.of(userRepository.save(user));
+        }
+        return Optional.empty();
     }
 
     @Override
