@@ -15,7 +15,3 @@ server:
   port: 8401
 logging:
   file: log/mb-user.log
-  level:
-    org:
-      hibernate:
-        SQL: debug
