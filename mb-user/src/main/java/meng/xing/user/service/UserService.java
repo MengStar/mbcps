@@ -3,10 +3,12 @@ package meng.xing.user.service;
 import meng.xing.user.controller.Meta.RequestUser;
 import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public interface UserService {
     /**
      * 新增用户

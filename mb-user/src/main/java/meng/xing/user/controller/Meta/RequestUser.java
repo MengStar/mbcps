@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class RequestUser {
     @NotEmpty
     @ApiModelProperty(value = "用户昵称")
     private String nickname;
-    @NotNull
+
     @ApiModelProperty(value = "true为主账号，false为子账号")
     private boolean main;
     @ApiModelProperty(value = "主账号姓名，子账号时生效")

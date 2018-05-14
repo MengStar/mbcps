@@ -28,7 +28,6 @@ public class User {
     private String password; //转json 忽略password
     @NotEmpty
     private String nickname;
-    @NonNull
     private boolean main;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
