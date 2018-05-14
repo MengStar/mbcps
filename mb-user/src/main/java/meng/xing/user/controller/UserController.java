@@ -30,7 +30,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "注册用户", notes = "用户名不能重复,字段不能为空")
+    @ApiOperation(value = "注册用户", notes = "用户名不能重复。若为子账号，主账号用户名不存在会注册失败。")
     @ApiImplicitParams(@ApiImplicitParam(dataType = "RequestUser", name = "requestUser", value = "用户信息", required = true))
     @PostMapping("/register")
     public ResponseUser register(@RequestBody @Validated RequestUser requestUser) {
@@ -44,12 +44,12 @@ public class UserController {
         User user = optionalUser.get();
         Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ROLE_DEFAULT);
-        user = userService.setRoles(user.getId(), roles);
+        user = userService.setRoles(user, roles);
         LOGGER.info("注册用户成功：{}", user);
         return new ResponseUser(user, "", 1, "注册用户成功");
     }
 
-    @ApiOperation(value = "修改用户", notes = "用户名必须已经注册,空字段不修改")
+    @ApiOperation(value = "修改用户", notes = "用户名需存在，且只有password，nickname可以修改，若字段为空则保持原样。")
     @ApiImplicitParams(@ApiImplicitParam(dataType = "RequestUser", name = "requestUser", value = "用户信息", required = true))
     @PostMapping("/update")
     public ResponseUser update(@RequestBody RequestUser requestUser) {

@@ -100,9 +100,7 @@ public class UserServiceIml implements UserService {
 
 
     @Override
-    public User setRoles(Long id, Set<RoleType> roles) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        User user = optionalUser.get();
+    public User setRoles(User user, Set<RoleType> roles) {
         Set<Role> _roles = new HashSet<>();
         for (RoleType role : roles
                 ) {

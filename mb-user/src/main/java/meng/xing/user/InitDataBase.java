@@ -23,14 +23,14 @@ public class InitDataBase implements CommandLineRunner {
     public void run(String... args) {
 
         if (roleRepository.count() != 0) {
-            LOGGER.info("权限列表：{}", roleRepository.findAll());
+            LOGGER.info("角色列表：{}", roleRepository.findAll());
             return;
         }
         for (RoleType v : RoleType.values()
                 ) {
             roleRepository.save(new Role(v.toString()));
         }
-        LOGGER.info("权限列表：{}", roleRepository.findAll());
+        LOGGER.info("角色列表：{}", roleRepository.findAll());
 
     }
 }

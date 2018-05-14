@@ -60,11 +60,11 @@ public interface UserService {
     /**
      * 设置用户权限
      *
-     * @param id    主键
+     * @param user   用户
      * @param roles 权限集合
      * @return {@code user} with roles
      */
-    User setRoles(Long id, Set<RoleType> roles);
+    User setRoles(User user, Set<RoleType> roles);
 
 
 }

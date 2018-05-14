@@ -4,7 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import meng.xing.user.entity.Role;
 import meng.xing.user.entity.User;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,11 +27,14 @@ public class ResponseUser {
     private String msg;
     @ApiModelProperty(value = "主账号姓名，子账号时生效")
     private String mainUsername;
+    @ApiModelProperty(value = "权限列表")
+    private Set<Role> roles;
 
     public ResponseUser(User user, String token, int code, String msg) {
         username = user.getUsername();
         nickname = user.getNickname();
         isMain = user.isMain();
+        roles = user.getRoles();
         mainUsername = user.getMainUser() == null ? null : user.getMainUser().getUsername();
         this.token = token;
         this.code = code;
