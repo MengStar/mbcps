@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
+/**
+ * 使得在ftl膜版中可以获取url；
+ */
 @ControllerAdvice
 public class ResourceUrlAdvice {
     private final

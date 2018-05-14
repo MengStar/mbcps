@@ -9,9 +9,6 @@ zuul:
     mb-test:
       path: /mb-test/**
       serviceId: mb-test
-    mb-user1:
-      path: /user/**
-      serviceId: mb-user
-    mb-user2:
-      path: /role/**
+    mb-user:
+      path: /mb-user/**
       serviceId: mb-user
