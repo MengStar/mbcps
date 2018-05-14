@@ -62,11 +62,16 @@ public interface UserService {
     /**
      * 设置用户权限
      *
-     * @param user   用户
+     * @param user  用户
      * @param roles 权限集合
      * @return {@code user} with roles
      */
     User setRoles(User user, Set<RoleType> roles);
 
+    String getToken(String username, String password);
 
+    String getToken(User user,String password);
+
+
+    Optional<User> getUserByToken(String token);
 }

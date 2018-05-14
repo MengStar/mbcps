@@ -10,7 +10,6 @@ spring:
       username: root
       password: password
       driver-class-name: com.mysql.jdbc.Driver
-
     application:
         name: mb-user
     cloud:
@@ -23,6 +22,12 @@ spring:
           max-attempts: 8
 #        name: user
 #        profile: dev
+
+jwt:
+    tokenHead: MB-
+    expiration: 36000
+    secret: liuxing
+
 server:
   port: 8401
 logging:

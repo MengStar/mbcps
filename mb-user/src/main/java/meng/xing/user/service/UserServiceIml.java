@@ -6,6 +6,7 @@ import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.User;
 import meng.xing.user.repository.RoleRepository;
 import meng.xing.user.repository.UserRepository;
+import meng.xing.user.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,19 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
 @Service
 public class UserServiceIml implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserServiceIml(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceIml(UserRepository userRepository, RoleRepository roleRepository, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
 
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Override
@@ -108,5 +111,32 @@ public class UserServiceIml implements UserService {
         }
         user.setRoles(_roles);
         return userRepository.save(user);
+    }
+
+    @Override
+    public String getToken(String username, String password) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (!optionalUser.isPresent()) return null;
+        User user = optionalUser.get();
+        if (!user.getPassword().equals(password)) return null;
+        return jwtTokenUtil.generateToken(username);
+    }
+
+    @Override
+    public String getToken(User user, String password) {
+        if (!user.getPassword().equals(password)) return null;
+        return jwtTokenUtil.generateToken(user.getUsername());
+    }
+
+
+    @Override
+    public Optional<User> getUserByToken(String token) {
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent() && jwtTokenUtil.validateToken(token, optionalUser.get()))
+            return optionalUser;
+        return Optional.empty();
+
+
     }
 }
