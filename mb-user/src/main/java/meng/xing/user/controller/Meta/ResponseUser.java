@@ -22,12 +22,14 @@ public class ResponseUser {
     private int code;
     @ApiModelProperty(value = "操作描述")
     private String msg;
+    @ApiModelProperty(value = "主账号姓名，子账号时生效")
+    private String mainUsername;
 
     public ResponseUser(User user, String token, int code, String msg) {
         username = user.getUsername();
         nickname = user.getNickname();
         isMain = user.isMain();
-
+        mainUsername = user.getMainUser() == null ? null : user.getMainUser().getUsername();
         this.token = token;
         this.code = code;
         this.msg = msg;
@@ -37,6 +39,7 @@ public class ResponseUser {
         username = requestUser.getUsername();
         nickname = requestUser.getNickname();
         isMain = requestUser.isMain();
+        mainUsername = requestUser.getMainUsername();
         this.code = code;
         this.msg = msg;
     }

@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user",
-        indexes = {@Index(name = "idx_username", columnList = "username", unique = true)}) //生成的表名
+        indexes = {@Index( columnList = "username",unique = true)}) //生成的表名
 @ToString(exclude = "password") //lombok标签, toString()忽略password
 public class User {
     @Id
@@ -39,6 +39,9 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User mainUser;
 
     public User(String username, String password, String nickname, Boolean main) {
         this.username = username;

@@ -1,5 +1,5 @@
 package meng.xing.user.entity;
 
 public enum RoleType {
-    ROLE_DEFAULT,ROLE_DEVELOPER,ROLE_ADMIN
+    ROLE_DEFAULT,ROLE_ADMIN,ROLE_MANAGE,ROLE_EMPLOY
 }

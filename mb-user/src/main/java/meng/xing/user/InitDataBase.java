@@ -20,19 +20,17 @@ public class InitDataBase implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args){
+    public void run(String... args) {
 
         if (roleRepository.count() != 0) {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("权限列表：{}", roleRepository.findAll());
-            }
+            LOGGER.info("权限列表：{}", roleRepository.findAll());
             return;
         }
-        roleRepository.save(new Role(RoleType.ROLE_DEFAULT.toString()));
-        roleRepository.save(new Role(RoleType.ROLE_DEVELOPER.toString()));
-        roleRepository.save(new Role(RoleType.ROLE_ADMIN.toString()));
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("权限列表：{}", roleRepository.findAll());
+        for (RoleType v : RoleType.values()
+                ) {
+            roleRepository.save(new Role(v.toString()));
         }
+        LOGGER.info("权限列表：{}", roleRepository.findAll());
+
     }
 }

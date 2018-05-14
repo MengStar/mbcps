@@ -24,4 +24,6 @@ public class RequestUser {
     @NotNull
     @ApiModelProperty(value = "true为主账号，false为子账号")
     private boolean main;
+    @ApiModelProperty(value = "主账号姓名，子账号时生效")
+    private String mainUsername;
 }

@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -67,5 +64,38 @@ public class UserController {
         LOGGER.info("修改用户成功：{}", user);
         return new ResponseUser(user, "", 1, "修改用户成功");
     }
+
+    @ApiOperation(value = "获取子账号信息", notes = "依据主账号的用户名获取子账号信息")
+    @GetMapping("/{mainUsername}/subUsers")
+    public Set<ResponseUser> subUsers(@PathVariable("mainUsername") String mainUsername) {
+        LOGGER.info("获取子账号信息开始,mainUsername:{}", mainUsername);
+        Set<User> subUsers = userService.findSubUsers(mainUsername);
+        Set<ResponseUser> ret = new HashSet<>();
+
+        for (User subUser : subUsers
+                ) {
+            ret.add(new ResponseUser(subUser, "", 1, ""));
+        }
+        LOGGER.info("获取子账号信息结束{}", ret);
+        return ret;
+    }
+
+    @ApiOperation(value = "用户信息", notes = "根据用户名获取信息")
+    @GetMapping("/{username}")
+    public ResponseUser user(@PathVariable("username") String username) {
+        LOGGER.info("获取账号信息开始,username:{}", username);
+        Optional<User> user = userService.findUser(username);
+        ResponseUser responseUser;
+        if (!user.isPresent()) {
+            responseUser = new ResponseUser(new User(), "", -1, "");
+            LOGGER.info("获取账号信息结束{}", responseUser);
+            return responseUser;
+        } else {
+            responseUser = new ResponseUser(user.get(), "", 1, "");
+            LOGGER.info("获取账号信息结束{}", responseUser);
+            return responseUser;
+        }
+    }
+
 }
 
