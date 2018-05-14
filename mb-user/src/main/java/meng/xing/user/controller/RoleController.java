@@ -1,17 +1,17 @@
 package meng.xing.user.controller;
 
 import io.swagger.annotations.ApiOperation;
-import meng.xing.user.controller.Meta.ResponseUser;
+import meng.xing.common.User.ResponseUser;
+import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
-import meng.xing.user.entity.RoleType;
 import meng.xing.user.entity.User;
 import meng.xing.user.service.RoleService;
 import meng.xing.user.service.UserService;
+import meng.xing.user.util.User2ResponseUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,7 +41,11 @@ public class RoleController {
     public ResponseUser setRoles(@PathVariable("username") String username, @RequestBody Set<RoleType> roles) {
         Optional<User> optionalUser = userService.findUser(username);
         LOGGER.info("设置用户username：{}的角色列表：{}", username, roles);
-        return optionalUser.map(user -> new ResponseUser(userService.setRoles(user, roles), "", 1, "")).orElseGet(() -> new ResponseUser(new User(), "", -1, "用户不存在"));
+        if (!optionalUser.isPresent())
+            return new ResponseUser("", -1, "用户不存在");
+        User user = userService.setRoles(optionalUser.get(), roles);
+        return User2ResponseUser.transfer(user, "", 1, "设置权限成功");
+
     }
 
 

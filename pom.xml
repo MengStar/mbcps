@@ -10,6 +10,7 @@
         <module>mb-gateway</module>
         <module>mb-web-test</module>
         <module>mb-user</module>
+        <module>common-meta</module>
     </modules>
 
     <groupId>meng.xing</groupId>

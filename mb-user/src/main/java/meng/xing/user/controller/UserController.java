@@ -3,12 +3,13 @@ package meng.xing.user.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import meng.xing.user.controller.Meta.RequestUandP;
-import meng.xing.user.controller.Meta.RequestUser;
-import meng.xing.user.controller.Meta.ResponseUser;
-import meng.xing.user.entity.RoleType;
+import meng.xing.common.User.RequestUandP;
+import meng.xing.common.User.RequestUser;
+import meng.xing.common.User.ResponseUser;
+import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.User;
 import meng.xing.user.service.UserService;
+import meng.xing.user.util.User2ResponseUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class UserController {
 
         String token = userService.getToken(user, user.getPassword());
         LOGGER.info("注册用户成功：{},token:{}", user, token);
-        return new ResponseUser(user, token, 1, "注册用户成功");
+        return User2ResponseUser.transfer(user, token, 1, "注册用户成功");
     }
 
     @ApiOperation(value = "修改用户", notes = "用户名需存在，且只有password，nickname可以修改，若字段为空则保持原样。")
@@ -65,7 +66,7 @@ public class UserController {
         }
         User user = optionalUser.get();
         LOGGER.info("修改用户成功：{}", user);
-        return new ResponseUser(user, "", 1, "修改用户成功");
+        return User2ResponseUser.transfer(user, "", 1, "修改用户成功");
     }
 
     @PostMapping("/login")
@@ -73,22 +74,22 @@ public class UserController {
         Optional<User> optionalUser = userService.findUser(requestUandP.getUsername());
         if (!optionalUser.isPresent()) {
             LOGGER.info("用户名不存在{}", requestUandP);
-            return new ResponseUser(new User(), "", -1, "用户名不存在");
+            return User2ResponseUser.transfer(new User(), "", -1, "用户名不存在");
         }
         String token = userService.getToken(optionalUser.get(), requestUandP.getPassword());
         if (token == null) {
             LOGGER.info("密码错误：{}", requestUandP);
-            return new ResponseUser(new User(), "", -1, "密码错误");
+            return User2ResponseUser.transfer(new User(), "", -1, "密码错误");
         }
         LOGGER.info("登陆成功：{}", requestUandP);
-        return new ResponseUser(optionalUser.get(), token, 1, "登陆成功");
+        return User2ResponseUser.transfer(optionalUser.get(), token, 1, "登陆成功");
     }
 
     @GetMapping("/validate/{token}")
     public ResponseUser validate(@PathVariable("token") String token) {
         LOGGER.info("验证token：{}", token);
         Optional<User> optionalUser = userService.getUserByToken(token);
-        return optionalUser.map(user -> new ResponseUser(user, token, 1, "验证成功")).orElseGet(() -> new ResponseUser(new User(), "", -1, "验证失败"));
+        return optionalUser.map(user -> User2ResponseUser.transfer(user, token, 1, "验证成功")).orElseGet(() -> User2ResponseUser.transfer(new User(), "", -1, "验证失败"));
     }
 
     @ApiOperation(value = "获取子账号信息", notes = "依据主账号的用户名获取子账号信息")
@@ -100,7 +101,7 @@ public class UserController {
 
         for (User subUser : subUsers
                 ) {
-            ret.add(new ResponseUser(subUser, "", 1, ""));
+            ret.add(User2ResponseUser.transfer(subUser, "", 1, ""));
         }
         LOGGER.info("获取子账号信息结束{}", ret);
         return ret;
@@ -113,11 +114,11 @@ public class UserController {
         Optional<User> user = userService.findUser(username);
         ResponseUser responseUser;
         if (!user.isPresent()) {
-            responseUser = new ResponseUser(new User(), "", -1, "");
+            responseUser = User2ResponseUser.transfer(new User(), "", -1, "");
             LOGGER.info("获取账号信息结束{}", responseUser);
             return responseUser;
         } else {
-            responseUser = new ResponseUser(user.get(), "", 1, "");
+            responseUser = User2ResponseUser.transfer(user.get(), "", 1, "");
             LOGGER.info("获取账号信息结束{}", responseUser);
             return responseUser;
         }

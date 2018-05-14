@@ -1,7 +1,7 @@
 package meng.xing.user.service;
 
-import meng.xing.user.controller.Meta.RequestUser;
-import meng.xing.user.entity.RoleType;
+import meng.xing.common.User.RequestUser;
+import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.User;
 import org.springframework.stereotype.Service;
 

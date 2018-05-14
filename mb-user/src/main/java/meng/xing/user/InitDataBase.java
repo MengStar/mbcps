@@ -1,7 +1,8 @@
 package meng.xing.user;
 
+import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
-import meng.xing.user.entity.RoleType;
+
 import meng.xing.user.repository.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

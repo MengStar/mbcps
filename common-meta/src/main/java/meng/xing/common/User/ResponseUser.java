@@ -1,11 +1,9 @@
-package meng.xing.user.controller.Meta;
+package meng.xing.common.User;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import meng.xing.user.entity.Role;
-import meng.xing.user.entity.User;
 
 import java.util.Set;
 
@@ -19,33 +17,29 @@ public class ResponseUser {
     private String nickname;
     @ApiModelProperty(value = "true为主账号，false为子账号")
     private boolean isMain;
+    @ApiModelProperty(value = "主账号姓名，子账号时生效")
+    private String mainUsername;
+    @ApiModelProperty(value = "权限列表")
+    private Set<RoleType> roles;
     @ApiModelProperty(value = "登录用的token")
     private String token;
     @ApiModelProperty(value = "1：成功，-1：失败")
     private int code;
     @ApiModelProperty(value = "操作描述")
     private String msg;
-    @ApiModelProperty(value = "主账号姓名，子账号时生效")
-    private String mainUsername;
-    @ApiModelProperty(value = "权限列表")
-    private Set<Role> roles;
 
-    public ResponseUser(User user, String token, int code, String msg) {
-        username = user.getUsername();
-        nickname = user.getNickname();
-        isMain = user.isMain();
-        roles = user.getRoles();
-        mainUsername = user.getMainUser() == null ? null : user.getMainUser().getUsername();
-        this.token = token;
-        this.code = code;
-        this.msg = msg;
-    }
 
     public ResponseUser(RequestUser requestUser, int code, String msg) {
         username = requestUser.getUsername();
         nickname = requestUser.getNickname();
         isMain = requestUser.isMain();
         mainUsername = requestUser.getMainUsername();
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public ResponseUser(String token, int code, String msg) {
+        this.token = token;
         this.code = code;
         this.msg = msg;
     }
