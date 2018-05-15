@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 public class UserServiceFallback implements UserService {
     @Override
     public ResponseUser findUserByToken(String token) {
-        return null;
+        return new ResponseUser();
     }
 }

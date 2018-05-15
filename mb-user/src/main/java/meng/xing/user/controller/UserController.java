@@ -40,7 +40,7 @@ public class UserController {
         LOGGER.info("注册用户开始：{}", requestUser);
         Optional<User> optionalUser = userService.addUser(requestUser);
         if (!optionalUser.isPresent()) {
-            LOGGER.info("注册用户失败：{}", requestUser);
+            LOGGER.warn("注册用户失败：{}", requestUser);
             return new ResponseUser(requestUser, -1, "注册用户失败");
         }
         User user = optionalUser.get();
@@ -61,7 +61,7 @@ public class UserController {
         LOGGER.info("修改用户开始：{}", requestUser);
         Optional<User> optionalUser = userService.updateUser(requestUser);
         if (!optionalUser.isPresent()) {
-            LOGGER.info("修改用户失败：{}", requestUser);
+            LOGGER.warn("修改用户失败：{}", requestUser);
             return new ResponseUser(requestUser, -1, "修改用户失败");
         }
         User user = optionalUser.get();
@@ -73,12 +73,12 @@ public class UserController {
     public ResponseUser login(@RequestBody @Validated RequestUandP requestUandP) {
         Optional<User> optionalUser = userService.findUser(requestUandP.getUsername());
         if (!optionalUser.isPresent()) {
-            LOGGER.info("用户名不存在{}", requestUandP);
+            LOGGER.warn("用户名不存在{}", requestUandP);
             return User2ResponseUser.transfer(new User(), "", -1, "用户名不存在");
         }
         String token = userService.getToken(optionalUser.get(), requestUandP.getPassword());
         if (token == null) {
-            LOGGER.info("密码错误：{}", requestUandP);
+            LOGGER.warn("密码错误：{}", requestUandP);
             return User2ResponseUser.transfer(new User(), "", -1, "密码错误");
         }
         LOGGER.info("登陆成功：{}", requestUandP);

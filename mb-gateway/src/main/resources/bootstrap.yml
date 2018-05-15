@@ -11,6 +11,9 @@ spring:
           max-attempts: 8 # 最大尝试次数
         name: gateway
         profile: dev
+jwt:
+  header: Authorization
+  tokenHead: MB-
 server:
   port: 8400
 logging:

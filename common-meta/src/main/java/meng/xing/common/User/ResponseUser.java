@@ -28,6 +28,9 @@ public class ResponseUser {
     @ApiModelProperty(value = "操作描述")
     private String msg;
 
+    public Boolean isEmpty() {
+        return username == null || nickname == null;
+    }
 
     public ResponseUser(RequestUser requestUser, int code, String msg) {
         username = requestUser.getUsername();
