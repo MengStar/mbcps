@@ -16,7 +16,3 @@ server:
 logging:
   file: log/mb-gateway.log
 
-
-
-
-

@@ -12,3 +12,12 @@ zuul:
     mb-user:
       path: /mb-user/**
       serviceId: mb-user
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  hystrix:
+    enabled: true
