@@ -10,7 +10,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface UserService {
     @RequestMapping(method = RequestMethod.GET, value = "/user/validate/{token}", consumes = "application/json")
     ResponseUser findUserByToken(@PathVariable("token") String token);
-//
-//    ResponseUser findUserByUandP(RequestUandP requestUandP);
 }
 

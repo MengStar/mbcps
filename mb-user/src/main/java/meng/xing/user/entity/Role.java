@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Entity //jpa的标签 根据字段，自动创表
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "role")
-public class Role {
+public class Role  implements Serializable {
 
     @Id
     @JsonIgnore

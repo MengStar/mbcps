@@ -3,15 +3,6 @@ zuul:
     test:
       path: /test
       url: http://www.baidu.com/
-    mb-config:
-      path: /mb-config/**
-      serviceId: mb-config
-    mb-test:
-      path: /mb-test/**
-      serviceId: mb-test
-    mb-user:
-      path: /mb-user/**
-      serviceId: mb-user
 feign:
   client:
     config:

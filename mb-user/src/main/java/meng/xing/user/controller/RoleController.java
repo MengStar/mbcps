@@ -5,13 +5,16 @@ import meng.xing.common.User.ResponseUser;
 import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
 import meng.xing.user.entity.User;
+import meng.xing.user.service.CacheTokenService;
+import meng.xing.user.service.CacheUserService;
 import meng.xing.user.service.RoleService;
-import meng.xing.user.service.UserService;
+import meng.xing.user.util.CacheEvictUtil;
 import meng.xing.user.util.User2ResponseUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,12 +22,14 @@ import java.util.Set;
 @RequestMapping("/role")
 public class RoleController {
     private final RoleService roleService;
-    private final UserService userService;
+    private final CacheTokenService tokenService;
+    private final CacheUserService userService;
     private final static Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
     @Autowired
-    public RoleController(RoleService roleService, UserService userService) {
+    public RoleController(RoleService roleService, CacheTokenService tokenService, CacheUserService userService) {
         this.roleService = roleService;
+        this.tokenService = tokenService;
         this.userService = userService;
     }
 
@@ -44,6 +49,7 @@ public class RoleController {
         if (!optionalUser.isPresent())
             return new ResponseUser("", -1, "用户不存在");
         User user = userService.setRoles(optionalUser.get(), roles);
+        CacheEvictUtil.cacheEvict(user, LOGGER, userService, tokenService);
         return User2ResponseUser.transfer(user, "", 1, "设置权限成功");
 
     }

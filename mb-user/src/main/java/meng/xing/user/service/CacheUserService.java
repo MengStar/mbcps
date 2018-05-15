@@ -5,10 +5,11 @@ import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
 
 import meng.xing.user.entity.User;
-import meng.xing.user.repository.RoleRepository;
 import meng.xing.user.repository.UserRepository;
 import meng.xing.user.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,16 +18,15 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserServiceIml implements UserService {
+public class CacheUserService implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserServiceIml(UserRepository userRepository, RoleRepository roleRepository, JwtTokenUtil jwtTokenUtil) {
+    public CacheUserService(UserRepository userRepository, RoleService roleService, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-
+        this.roleService = roleService;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
@@ -79,6 +79,7 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
+    @Cacheable(value = "user", key = "'detailsByUsername@'+#username")
     public Optional<User> findUser(String username) {
         return userRepository.findByUsername(username);
     }
@@ -91,6 +92,7 @@ public class UserServiceIml implements UserService {
 
 
     @Override
+    @Cacheable(value = "user", key = "'subDetailsBymain@'+#mainUsername")
     public Set<User> findSubUsers(String mainUsername) {
         Optional<User> main = userRepository.findByUsername(mainUsername);
         return main.map(userRepository::findSubUsersByMainUser).orElse(new HashSet<>());
@@ -107,36 +109,25 @@ public class UserServiceIml implements UserService {
         Set<Role> _roles = new HashSet<>();
         for (RoleType role : roles
                 ) {
-            _roles.add(roleRepository.findByRole(role.toString()));
+            _roles.add(roleService.findBy(role));
         }
         user.setRoles(_roles);
         return userRepository.save(user);
     }
 
     @Override
-    public String getToken(String username, String password) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (!optionalUser.isPresent()) return null;
-        User user = optionalUser.get();
-        if (!user.getPassword().equals(password)) return null;
-        return jwtTokenUtil.generateToken(username);
-    }
-
-    @Override
-    public String getToken(User user, String password) {
-        if (!user.getPassword().equals(password)) return null;
-        return jwtTokenUtil.generateToken(user.getUsername());
+    @Cacheable(value = "user", key = "'isMainByUsername@'+#username")
+    public boolean isMain(String username) {
+        Optional<User> optionalUser = findUser(username);
+        return optionalUser.map(User::isMain).orElse(false);
     }
 
 
-    @Override
-    public Optional<User> getUserByToken(String token) {
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isPresent() && jwtTokenUtil.validateToken(token, optionalUser.get()))
-            return optionalUser;
-        return Optional.empty();
+    @CacheEvict(value = "user", key = "'detailsByUsername@'+#username")
+    public void detailsCacheEvict(String username) {
+    }
 
-
+    @CacheEvict(value = "user", key = "'subDetailsBymain@'+#mainUsername")
+    public void subDetailsCacheEvict(String mainUsername) {
     }
 }

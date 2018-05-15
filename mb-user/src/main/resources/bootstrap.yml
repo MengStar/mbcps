@@ -22,13 +22,12 @@ spring:
           max-attempts: 8
     cache:
       redis:
-        time-to-live: 600000
-      cache-names: userCache
-
+        time-to-live: 5m
+      type: redis
     redis:
       host: aliyun.com
       port: 6379
-      timeout: 2000
+      timeout: 5s
       database: 0
 
 #        name: user

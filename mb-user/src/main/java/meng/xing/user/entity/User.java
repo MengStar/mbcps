@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,9 +16,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user",
-        indexes = {@Index( columnList = "username",unique = true)}) //生成的表名
+        indexes = {@Index(columnList = "username", unique = true)}) //生成的表名
 @ToString(exclude = "password") //lombok标签, toString()忽略password
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;//jpa 主键和自增

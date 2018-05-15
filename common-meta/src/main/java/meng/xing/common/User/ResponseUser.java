@@ -1,5 +1,6 @@
 package meng.xing.common.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class ResponseUser {
     @ApiModelProperty(value = "操作描述")
     private String msg;
 
+    @JsonIgnore
     public Boolean isEmpty() {
         return username == null || nickname == null;
     }

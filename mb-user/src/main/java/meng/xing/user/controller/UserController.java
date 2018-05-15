@@ -8,7 +8,10 @@ import meng.xing.common.User.RequestUser;
 import meng.xing.common.User.ResponseUser;
 import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.User;
+import meng.xing.user.service.CacheTokenService;
+import meng.xing.user.service.CacheUserService;
 import meng.xing.user.service.UserService;
+import meng.xing.user.util.CacheEvictUtil;
 import meng.xing.user.util.User2ResponseUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +27,14 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private final CacheUserService userService;
+    private final CacheTokenService tokenService;
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService userService, CacheTokenService tokenService) {
+        this.userService = (CacheUserService) userService;
+        this.tokenService = tokenService;
     }
 
     @ApiOperation(value = "注册用户", notes = "用户名不能重复。若为子账号，主账号用户名不存在会注册失败。")
@@ -48,8 +53,9 @@ public class UserController {
         roles.add(RoleType.ROLE_DEFAULT);
         user = userService.setRoles(user, roles);
 
-        String token = userService.getToken(user, user.getPassword());
+        String token = tokenService.getToken(user, user.getPassword());
         LOGGER.info("注册用户成功：{},token:{}", user, token);
+        CacheEvictUtil.cacheEvict(user, LOGGER, userService,tokenService);
         return User2ResponseUser.transfer(user, token, 1, "注册用户成功");
     }
 
@@ -66,6 +72,7 @@ public class UserController {
         }
         User user = optionalUser.get();
         LOGGER.info("修改用户成功：{}", user);
+        CacheEvictUtil.cacheEvict(user, LOGGER, userService,tokenService);
         return User2ResponseUser.transfer(user, "", 1, "修改用户成功");
     }
 
@@ -76,7 +83,7 @@ public class UserController {
             LOGGER.warn("用户名不存在{}", requestUandP);
             return User2ResponseUser.transfer(new User(), "", -1, "用户名不存在");
         }
-        String token = userService.getToken(optionalUser.get(), requestUandP.getPassword());
+        String token = tokenService.getToken(optionalUser.get(), requestUandP.getPassword());
         if (token == null) {
             LOGGER.warn("密码错误：{}", requestUandP);
             return User2ResponseUser.transfer(new User(), "", -1, "密码错误");
@@ -88,7 +95,7 @@ public class UserController {
     @GetMapping("/validate/{token}")
     public ResponseUser validate(@PathVariable("token") String token) {
         LOGGER.info("验证token：{}", token);
-        Optional<User> optionalUser = userService.getUserByToken(token);
+        Optional<User> optionalUser = tokenService.getUserByToken(token);
         return optionalUser.map(user -> User2ResponseUser.transfer(user, token, 1, "验证成功")).orElseGet(() -> User2ResponseUser.transfer(new User(), "", -1, "验证失败"));
     }
 
@@ -123,6 +130,7 @@ public class UserController {
             return responseUser;
         }
     }
+
 
 }
 

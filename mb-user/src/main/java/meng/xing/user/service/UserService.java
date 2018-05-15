@@ -3,7 +3,9 @@ package meng.xing.user.service;
 import meng.xing.common.User.RequestUser;
 import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 import java.util.Set;
@@ -68,10 +70,5 @@ public interface UserService {
      */
     User setRoles(User user, Set<RoleType> roles);
 
-    String getToken(String username, String password);
-
-    String getToken(User user,String password);
-
-
-    Optional<User> getUserByToken(String token);
+    boolean isMain(String username);
 }
