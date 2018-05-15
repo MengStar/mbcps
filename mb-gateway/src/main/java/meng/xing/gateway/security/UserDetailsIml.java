@@ -40,7 +40,7 @@ public class UserDetailsIml implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return "password";
     }
 
     @Override

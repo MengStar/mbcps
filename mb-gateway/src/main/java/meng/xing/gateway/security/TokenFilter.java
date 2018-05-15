@@ -49,6 +49,7 @@ public class TokenFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 LOGGER.info("权限验证成功,authentication：{},request:{}", authentication, request);
+                chain.doFilter(request, response);
             } else {
                 LOGGER.warn("token验证失败：{},request：{}", token, request);
                 chain.doFilter(request, response);

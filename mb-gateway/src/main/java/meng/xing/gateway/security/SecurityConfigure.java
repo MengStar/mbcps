@@ -39,7 +39,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
-                        "/",
+                        "/test",
                         "/*.html",
                         "/favicon.ico",
                         "/**/*.html",
@@ -48,8 +48,8 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 //解决跨域响应OPTIONS请求问题
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 对于获取token的rest api要允许匿名访问
-                .antMatchers("/auth/**").permitAll()
+                // 登录不验证权限
+                .antMatchers(HttpMethod.POST, "/mb-user/user/register", "/mb-user/user/login").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
         // 禁用缓存
