@@ -5,7 +5,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://127.0.0.1:8761/eureka/}
-
-redis:
-  host: aliyun.com
-  port: 6379
