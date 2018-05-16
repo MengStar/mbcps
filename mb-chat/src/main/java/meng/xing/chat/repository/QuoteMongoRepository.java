@@ -7,9 +7,8 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
-
 @Repository
-public interface QuoteMongoReactiveRepository extends ReactiveCrudRepository<Quote, String> {
+public interface QuoteMongoRepository extends ReactiveCrudRepository<Quote, String> {
 
     @Query("{ id: { $exists: true }}")
     Flux<Quote> retrieveAllQuotesPaged(final Pageable page);

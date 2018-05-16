@@ -1,6 +1,8 @@
 package meng.xing.chat.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public final class Quote {
 
     private String id;
