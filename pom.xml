@@ -11,6 +11,7 @@
         <module>mb-web-test</module>
         <module>mb-user</module>
         <module>common-meta</module>
+        <module>mb-chat</module>
     </modules>
 
     <groupId>meng.xing</groupId>
