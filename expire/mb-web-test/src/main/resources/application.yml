@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: mb-web-test
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths:
+              - /js/**
+              - /css/**
+server:
+    port: 8080
+logging:
+    file: log/mb--web-test.log
