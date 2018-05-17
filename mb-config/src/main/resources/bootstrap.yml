@@ -5,7 +5,7 @@ spring:
       config:
         server:
           git:
-            uri: https://github.com/MengStar/mbcps/
+            uri: https://github.com/MengStar/mbcps-config.git
 server:
   port: 8788
 
