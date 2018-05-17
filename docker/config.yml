@@ -7,7 +7,7 @@ services:
     networks:
       - springcloud-overlay
     ports:
-      - "8888:8888"
+      - "8788:8788"
     environment:
       - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
 networks:
