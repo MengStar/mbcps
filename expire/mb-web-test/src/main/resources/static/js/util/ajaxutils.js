@@ -3,63 +3,63 @@
  */
 
 
-function getJSON (url) {
-    return new Promise( (resolve, reject) => {
+function getJSON(url) {
+    return new Promise((resolve, reject) = > {
         var xhr = new XMLHttpRequest()
         xhr.open('GET', url, true)
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    debugger;
-                    if(this.responseText!="401") {
-                        resolve(this.responseText, this)
-                    }else{
-                        window.location.href="/login";
-                    }
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                debugger;
+                if (this.responseText != "401") {
+                    resolve(this.responseText, this)
                 } else {
-                    var resJson = { code: this.status, response: this.response }
-                    reject(resJson, this)
+                    window.location.href = "/login";
                 }
+            } else {
+                var resJson = {code: this.status, response: this.response}
+                reject(resJson, this)
             }
         }
+    }
 
-        xhr.send()
-    })
+    xhr.send()
+})
 }
 
 function postJSON(url, data) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) = > {
         var xhr = new XMLHttpRequest()
         xhr.open("POST", url, true)
-        xhr.setRequestHeader("Content-type", "application/json");
+    xhr.setRequestHeader("Content-type", "application/json");
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    if(this.responseText!="401") {
-                        resolve(JSON.parse(this.responseText), this)
-                    }else{
-                        window.location.href="/login";
-                    }
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                if (this.responseText != "401") {
+                    resolve(JSON.parse(this.responseText), this)
                 } else {
-                    var resJson = { code: this.status, response: this.response }
-                    reject(resJson, this)
+                    window.location.href = "/login";
                 }
+            } else {
+                var resJson = {code: this.status, response: this.response}
+                reject(resJson, this)
             }
         }
+    }
 
-        xhr.send(JSON.stringify(data))
-    })
+    xhr.send(JSON.stringify(data))
+})
 }
 
-function serializeObject(form){
-    var o ={};
-    $.each(form.serializeArray(),function(index){
-        if(o[this['name']]){
-            o[this['name']] = o[this['name']] +","+this['value'];
+function serializeObject(form) {
+    var o = {};
+    $.each(form.serializeArray(), function (index) {
+        if (o[this['name']]) {
+            o[this['name']] = o[this['name']] + "," + this['value'];
 
-        }else{
+        } else {
             o[this['name']] = this['value'];
         }
     });
