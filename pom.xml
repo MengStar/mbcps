@@ -12,6 +12,7 @@
         <module>mb-user</module>
         <module>common-meta</module>
         <module>mb-chat</module>
+        <module>gatling-scripts</module>
     </modules>
 
     <groupId>meng.xing</groupId>
