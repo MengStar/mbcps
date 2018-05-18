@@ -16,6 +16,15 @@ jwt:
     tokenHead: MB-
 server:
     port: 8400
+        #这个属性就是keep-alive的时间
+    connection-timeout: 50s
+    compression:
+        enabled: true
+        min-response-size: 1024
+    tomcat:
+        max-threads: 200
+        max-connections: 200
 logging:
     file: log/mb-gateway.log
 
+#这个版本feign不能配置！！！
