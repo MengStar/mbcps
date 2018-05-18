@@ -1,4 +1,4 @@
-package meng.xing.gateway;
+package meng.xing.gateway.configuration;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * 过滤器，实现权限控制
  */
 @Component
-public class AuthFilter extends ZuulFilter {
-    private final static Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
+public class ZuulConfiguration extends ZuulFilter {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ZuulConfiguration.class);
 
 
     @Override
@@ -47,8 +47,8 @@ public class AuthFilter extends ZuulFilter {
 
         if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith("/mb-user/role"))
             return null;
-        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith("/mb-user/user/login") ||
-                request.getRequestURI().startsWith("/mb-user/user/register")))
+        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith("/mb-user/user/login/") ||
+                request.getRequestURI().startsWith("/mb-user/user/register/")))
             return null;
         // TODO: 2018/5/15 完善权限过滤 
         LOGGER.info("send {} request to {}", request.getMethod(), request.getRequestURL().toString());
@@ -56,7 +56,7 @@ public class AuthFilter extends ZuulFilter {
         ctx.setSendZuulResponse(false);
         ctx.setResponseStatusCode(403);
         ctx.setResponseBody("{\"result\":\"没有权限!\"}");
-        ctx.getResponse().setContentType("application/json;charset=UTF-8");
+        ctx.getResponse().setContentType("application.yml/json;charset=UTF-8");
         return null;
     }
 

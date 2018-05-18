@@ -2,20 +2,20 @@ spring:
     application:
         name: mb-gateway
     cloud:
-      config:
-        uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8788}/
-        fail-fast: true # 开启之后可以快速重试
-        retry:
-          multiplier: 2 # 间隔乘数
-          max-interval: 8000 # 最大间隔时间
-          max-attempts: 8 # 最大尝试次数
-        name: gateway
-        profile: dev
+        config:
+            uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8788}/
+            fail-fast: true # 开启之后可以快速重试
+            retry:
+              multiplier: 2 # 间隔乘数
+              max-interval: 8000 # 最大间隔时间
+              max-attempts: 8 # 最大尝试次数
+            name: gateway
+            profile: dev
 jwt:
-  header: Authorization
-  tokenHead: MB-
+    header: Authorization
+    tokenHead: MB-
 server:
-  port: 8400
+    port: 8400
 logging:
-  file: log/mb-gateway.log
+    file: log/mb-gateway.log
 

@@ -4,7 +4,7 @@ spring:
       show-sql: true
       hibernate:
         ddl-auto: create
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #设置innodb
     datasource:
       url: jdbc:mysql://aliyun.com:3306/mbcps?characterEncoding=UTF-8
       username: root
