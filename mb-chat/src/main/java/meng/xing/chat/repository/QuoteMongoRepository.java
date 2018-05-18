@@ -10,6 +10,6 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface QuoteMongoRepository extends ReactiveCrudRepository<Quote, String> {
 
-    @Query("{ id: { $exists: true }}")
+    @Query("{ seq: { $exists: true }}")
     Flux<Quote> retrieveAllQuotesPaged(final Pageable page);
 }

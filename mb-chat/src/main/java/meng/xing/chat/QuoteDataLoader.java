@@ -40,11 +40,12 @@ public class QuoteDataLoader implements CommandLineRunner {
                     new InputStreamReader(getClass().getClassLoader().getResourceAsStream("pg2000.txt")));
             Flux.fromStream(
                     bufferedReader.lines().filter(l -> !l.trim().isEmpty())
-                            .map(l -> quoteMongoRepository.save(new Quote(String.valueOf(longSupplier.getAsLong()), "El Quijote", l)))
+                            .map(l -> quoteMongoRepository.save(new Quote(longSupplier.getAsLong(), "El Quijote", l)))
             ).subscribe(m -> log.info("New quote loaded: {}", m.block()));
             log.info("Mongo 现在有 {} 个entries.", quoteMongoRepository.count().block());
+        } else {
+            log.info("Mongo初始化完毕，现在有 {} 个entries.", count);
         }
-        log.info("Mongo初始化完毕，现在有 {} 个entries.", count);
     }
 
 }

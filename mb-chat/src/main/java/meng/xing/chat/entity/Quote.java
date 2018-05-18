@@ -1,40 +1,24 @@
 package meng.xing.chat.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
+@Data
+@AllArgsConstructor
 public final class Quote {
 
-    private String id;
+    @Indexed
+    private Long seq;
     private String book;
     private String content;
-
-    // Empty constructor is needed for Jackson to deserialize JSON
-    public Quote() {
-    }
-
-    public Quote(String id, String book, String content) {
-        this.id = id;
-        this.book = book;
-        this.content = content;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getBook() {
-        return book;
-    }
-
-    public String getContent() {
-        return content;
-    }
 
     @Override
     public String toString() {
         return "Quote{" +
-                "id='" + id + '\'' +
+                "seq='" + seq + '\'' +
                 ", book='" + book + '\'' +
                 ", content='" + content + '\'' +
                 '}';
@@ -47,14 +31,14 @@ public final class Quote {
 
         Quote quote = (Quote) o;
 
-        if (id != null ? !id.equals(quote.id) : quote.id != null) return false;
+        if (!seq.equals(quote.getSeq())) return false;
         if (book != null ? !book.equals(quote.book) : quote.book != null) return false;
         return content != null ? content.equals(quote.content) : quote.content == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = seq.hashCode();
         result = 31 * result + (book != null ? book.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
