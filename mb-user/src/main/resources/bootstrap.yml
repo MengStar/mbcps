@@ -29,15 +29,33 @@ spring:
       port: 6379
       timeout: 5s
       database: 0
-
-#        name: user
-#        profile: dev
 jwt:
     tokenHead: MB-
     expiration: 36000
     secret: liuxing
-
-server:
-  port: 8401
 logging:
   file: log/mb-user.log
+server:
+  port: 8401
+  #这个属性就是keep-alive的时间
+  connection-timeout: 100s
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+      - application/xml
+      - text/html,text/xml
+      - text/plain
+    min-response-size: 1024
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+
+
+
+#my_server:
+#  port: 8403
+#  maxConnections: 2000
+#  maxThreads: 200
+#  connectionTimeout: 10000
+#  keepAliveTimeout: 100000

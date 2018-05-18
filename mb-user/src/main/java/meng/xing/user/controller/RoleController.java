@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/role")
@@ -36,6 +37,11 @@ public class RoleController {
     @ApiOperation(value = "角色集合", notes = "返回全部角色集合")
     @GetMapping("/")
     public Set<Role> roles() {
+//        try {
+//            TimeUnit.SECONDS.sleep(10L);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Set<Role> roles = roleService.roles();
         LOGGER.info("获取角色集合：{}", roles);
         return roles;
