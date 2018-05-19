@@ -1,9 +1,9 @@
 package meng.xing.user.service;
 
+import meng.xing.common.User.RequestNickPass;
 import meng.xing.common.User.RequestUser;
 import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.User;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
@@ -27,7 +27,7 @@ public interface UserService {
      * @param requestUser 用户实体
      * @return {@code Optional} with user
      */
-    Optional<User> updateUser(RequestUser requestUser);
+    Optional<User> updateUser(RequestNickPass requestUser);
 
     /**
      * 返回用户

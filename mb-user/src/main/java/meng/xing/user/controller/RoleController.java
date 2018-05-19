@@ -52,8 +52,10 @@ public class RoleController {
     public ResponseUser setRoles(@PathVariable("username") String username, @RequestBody Set<RoleType> roles) {
         Optional<User> optionalUser = userService.findUser(username);
         LOGGER.info("设置用户username：{}的角色列表：{}", username, roles);
-        if (!optionalUser.isPresent())
-            return new ResponseUser("", -1, "用户不存在");
+        if (!optionalUser.isPresent()) {
+            return User2ResponseUser.transfer(new User(), "", -1, "设置权限的用户不存在");
+        }
+
         User user = userService.setRoles(optionalUser.get(), roles);
         CacheEvictUtil.cacheEvict(user, LOGGER, userService, tokenService);
         return User2ResponseUser.transfer(user, "", 1, "设置权限成功");

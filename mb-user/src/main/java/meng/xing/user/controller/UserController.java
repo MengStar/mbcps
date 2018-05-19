@@ -3,10 +3,7 @@ package meng.xing.user.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import meng.xing.common.User.RequestUandP;
-import meng.xing.common.User.RequestUser;
-import meng.xing.common.User.ResponseUser;
-import meng.xing.common.User.RoleType;
+import meng.xing.common.User.*;
 import meng.xing.user.entity.User;
 import meng.xing.user.service.CacheTokenService;
 import meng.xing.user.service.CacheUserService;
@@ -46,50 +43,53 @@ public class UserController {
         Optional<User> optionalUser = userService.addUser(requestUser);
         if (!optionalUser.isPresent()) {
             LOGGER.warn("注册用户失败：{}", requestUser);
-            return new ResponseUser(requestUser, -1, "注册用户失败");
+            return User2ResponseUser.transfer(new User(), "", -1, "注册用户失败");
+
         }
         User user = optionalUser.get();
         Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ROLE_DEFAULT);
         user = userService.setRoles(user, roles);
 
-        String token = tokenService.getToken(user, user.getPassword());
+        String token = tokenService.getToken(user);
         LOGGER.info("注册用户成功：{},token:{}", user, token);
-        CacheEvictUtil.cacheEvict(user, LOGGER, userService,tokenService);
+        CacheEvictUtil.cacheEvict(user, LOGGER, userService, tokenService);
         return User2ResponseUser.transfer(user, token, 1, "注册用户成功");
     }
 
     @ApiOperation(value = "修改用户", notes = "用户名需存在，且只有password，nickname可以修改，若字段为空则保持原样。")
-    @ApiImplicitParams(@ApiImplicitParam(dataType = "RequestUser", name = "requestUser", value = "用户信息", required = true))
+    @ApiImplicitParams(@ApiImplicitParam(dataType = "RequestNickPass", name = "requestUser", value = "用户信息", required = true))
     @PostMapping("/update/")
-    public ResponseUser update(@RequestBody RequestUser requestUser) {
+    public ResponseUser update(@Validated @RequestBody RequestNickPass requestUser) {
 
         LOGGER.info("修改用户开始：{}", requestUser);
         Optional<User> optionalUser = userService.updateUser(requestUser);
         if (!optionalUser.isPresent()) {
             LOGGER.warn("修改用户失败：{}", requestUser);
-            return new ResponseUser(requestUser, -1, "修改用户失败");
+            return User2ResponseUser.transfer(new User(), "", -1, "修改用户失败");
         }
         User user = optionalUser.get();
         LOGGER.info("修改用户成功：{}", user);
-        CacheEvictUtil.cacheEvict(user, LOGGER, userService,tokenService);
+        CacheEvictUtil.cacheEvict(user, LOGGER, userService, tokenService);
         return User2ResponseUser.transfer(user, "", 1, "修改用户成功");
     }
 
     @PostMapping("/login/")
-    public ResponseUser login(@RequestBody @Validated RequestUandP requestUandP) {
-        Optional<User> optionalUser = userService.findUser(requestUandP.getUsername());
+    public ResponseUser login(@RequestBody @Validated RequestUsernamePassword requestUsernamePassword) {
+        Optional<User> optionalUser = userService.findUser(requestUsernamePassword.getUsername());
         if (!optionalUser.isPresent()) {
-            LOGGER.warn("用户名不存在{}", requestUandP);
+            LOGGER.warn("用户名不存在{}", requestUsernamePassword);
             return User2ResponseUser.transfer(new User(), "", -1, "用户名不存在");
         }
-        String token = tokenService.getToken(optionalUser.get(), requestUandP.getPassword());
-        if (token == null) {
-            LOGGER.warn("密码错误：{}", requestUandP);
+        User user = optionalUser.get();
+        if (user.getPassword().equals(requestUsernamePassword.getPassword())) {
+            String token = tokenService.getToken(optionalUser.get());
+            LOGGER.info("登陆成功：{}", requestUsernamePassword);
+            return User2ResponseUser.transfer(optionalUser.get(), token, 1, "登陆成功");
+        } else {
+            LOGGER.warn("密码错误：{}", requestUsernamePassword);
             return User2ResponseUser.transfer(new User(), "", -1, "密码错误");
         }
-        LOGGER.info("登陆成功：{}", requestUandP);
-        return User2ResponseUser.transfer(optionalUser.get(), token, 1, "登陆成功");
     }
 
     @GetMapping("/validate/{token}/")
@@ -107,7 +107,7 @@ public class UserController {
         Set<ResponseUser> ret = new HashSet<>();
 
         for (User subUser : subUsers
-                ) {
+        ) {
             ret.add(User2ResponseUser.transfer(subUser, "", 1, ""));
         }
         LOGGER.info("获取子账号信息结束{}", ret);

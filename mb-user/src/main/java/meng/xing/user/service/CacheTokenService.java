@@ -21,19 +21,8 @@ public class CacheTokenService implements TokenService {
     }
 
     @Override
-    @Cacheable(value = "token", key = "'username@'+#username")
-    public String getToken(String username, String password) {
-        Optional<User> optionalUser = userService.findUser(username);
-        if (!optionalUser.isPresent()) return null;
-        User user = optionalUser.get();
-        if (!user.getPassword().equals(password)) return null;
-        return jwtTokenUtil.generateToken(username);
-    }
-
-    @Override
     @Cacheable(value = "token", key = "'username@'+#user.username")
-    public String getToken(User user, String password) {
-        if (!user.getPassword().equals(password)) return null;
+    public String getToken(User user) {
         return jwtTokenUtil.generateToken(user.getUsername());
     }
 

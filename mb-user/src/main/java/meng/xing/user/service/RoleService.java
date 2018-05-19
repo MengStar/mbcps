@@ -4,7 +4,6 @@ import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.RollbackException;
 import java.util.Set;
 
 @Service

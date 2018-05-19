@@ -1,5 +1,6 @@
 package meng.xing.user.service;
 
+import meng.xing.common.User.RequestNickPass;
 import meng.xing.common.User.RequestUser;
 import meng.xing.common.User.RoleType;
 import meng.xing.user.entity.Role;
@@ -62,7 +63,7 @@ public class CacheUserService implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(RequestUser requestUser) {
+    public Optional<User> updateUser(RequestNickPass requestUser) {
 
         Optional<User> optionalOldUser = userRepository.findByUsername(requestUser.getUsername());
         if (!optionalOldUser.isPresent())

@@ -18,10 +18,12 @@ public class User2ResponseUser {
         Set<Role> _roles = user.getRoles();
         if (_roles != null) {
             for (Role r : _roles
-                    ) {
+            ) {
                 roles.add(RoleType.valueOf(r.getRole()));
             }
         }
-        return new ResponseUser(username, nickname, isMain, mainUsername, roles, token, code, msg);
+        ResponseUser ret = new ResponseUser(username, nickname, isMain, mainUsername, roles, token);
+        ret.setCode(code, msg);
+        return ret;
     }
 }

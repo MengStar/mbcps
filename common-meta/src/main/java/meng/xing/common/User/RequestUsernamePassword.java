@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestUandP {
+public class RequestUsernamePassword {
     @NotEmpty
     @ApiModelProperty(value = "用户姓名")
     private String username;
