@@ -24,6 +24,7 @@ import java.nio.file.Path;
 public class FileController {
     private final static Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
+    // TODO: 2018/5/20 :不要用零时文件的方式 
     @PostMapping(value = "/upload/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<String> requestBodyFlux(@RequestPart("file") FilePart filePart, ServerHttpResponse response) throws IOException {
         LOGGER.info("上传文件开始：{}", filePart.filename());
