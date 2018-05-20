@@ -24,28 +24,23 @@ import java.nio.file.Path;
 public class FileController {
     private final static Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<String> requestBodyFlux(@RequestPart("file") FilePart filePart, ServerHttpResponse response) throws IOException {
         LOGGER.info("上传文件开始：{}", filePart.filename());
         Path tempFile = Files.createTempFile("temp", filePart.filename());
         LOGGER.info("上传文件临时路径：{}", tempFile);
 
         return filePart.transferTo(tempFile.toFile())
-                .doOnSuccess(aVoid -> {
-                    LOGGER.info("上传文件完成：{}", filePart.filename());
-                    response.setStatusCode(HttpStatus.FORBIDDEN);
-                })
+                .doOnSuccess(aVoid -> LOGGER.info("上传文件完成：{}", filePart.filename()))
                 .doOnError(e -> {
                     LOGGER.warn("上传文件失败：{}", e);
-                    response.setStatusCode(HttpStatus.FORBIDDEN);
-                })
-                .then(Mono.just(filePart.filename()))
-                ;
+                    response.setStatusCode(HttpStatus.BAD_GATEWAY);
+                }).then(Mono.just(filePart.filename()));
     }
 
 
-    @GetMapping("/download/{filename}")
-    public Mono<String> downloadByFile(@PathVariable String filename, ServerHttpResponse response) {
+    @GetMapping("/download/{filename}/")
+    public Mono<Void> downloadByFile(@PathVariable String filename, ServerHttpResponse response) {
 
         ClassPathResource resource = new ClassPathResource(MyResourcePath.imgPath(filename));
         LOGGER.info("下载文件：{}", resource.getPath());
@@ -62,6 +57,6 @@ public class FileController {
         response.getHeaders().set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
         response.getHeaders().setContentType(MediaType.IMAGE_JPEG);
 
-        return zeroCopyResponse.writeWith(file, 0, file.length()).then(Mono.just(filename));
+        return zeroCopyResponse.writeWith(file, 0, file.length());
     }
 }
