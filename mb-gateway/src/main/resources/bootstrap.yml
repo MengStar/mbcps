@@ -16,8 +16,9 @@ jwt:
     tokenHead: MB-
 server:
     port: 8400
-        #这个属性就是keep-alive的时间
+    #这个属性就是keep-alive的时间
     connection-timeout: 50s
+    #开启zip的压缩
     compression:
         enabled: true
         min-response-size: 1024

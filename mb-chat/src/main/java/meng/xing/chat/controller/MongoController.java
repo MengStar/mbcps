@@ -23,7 +23,7 @@ public class MongoController {
     @GetMapping("/quotes-reactive")
     public Flux<Quote> getQuoteFlux() {
         // If you want to use a shorter version of the Flux, use take(100) at the end of the statement below
-        return mongoRepository.findAll();
+        return mongoRepository.findAll().take(100);
     }
 
     @GetMapping("/quotes-reactive-paged")
