@@ -1,9 +1,9 @@
 package meng.xing.gateway.configuration;
 
 import meng.xing.gateway.security.TokenFilter;
+import meng.xing.gateway.security.UserDetailsServiceIml;
 import meng.xing.gateway.util.PasswordEncoderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -24,13 +23,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceIml userDetailsService;
 
     @Value("${zuul.prefix}")
     private String prefix;
 
     @Autowired
-    public SecurityConfigure(@Qualifier("userDetailsServiceIml") UserDetailsService userDetailsService) {
+    public SecurityConfigure(UserDetailsServiceIml userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -67,13 +66,9 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     }
 
     //配置AuthenticationManagerBuilder
-    @Autowired
-    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                // 设置UserDetailsService
-                .userDetailsService(this.userDetailsService)
-                // 使用BCrypt进行密码的hash
-                .passwordEncoder(PasswordEncoderUtil.getPasswordEncoder());
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(PasswordEncoderUtil.getPasswordEncoder());
     }
 
     @Bean

@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,7 +21,6 @@ import java.util.Optional;
  * 自定义的Filter
  * 通过jwt实现无状态的api保护
  */
-@Component
 public class TokenFilter extends OncePerRequestFilter {
     private final Logger LOGGER = LoggerFactory.getLogger(TokenFilter.class);
     @Autowired
