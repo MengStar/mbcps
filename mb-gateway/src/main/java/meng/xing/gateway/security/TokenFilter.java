@@ -41,6 +41,8 @@ public class TokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain) throws ServletException, IOException {
         String token = request.getHeader(this.tokenHeader);
+        LOGGER.info("request:{}  token：{} 认证开始,", request.getRequestURL(), token);
+
         if (token != null && token.startsWith(tokenHead)) {
             Optional<UserDetails> optionalUserDetails = userDetailsService.loadUserByToken(token);
             if (optionalUserDetails.isPresent()) {
@@ -48,14 +50,13 @@ public class TokenFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                LOGGER.info("权限验证成功,authentication：{},request:{}", authentication, request);
                 chain.doFilter(request, response);
             } else {
-                LOGGER.warn("token验证失败：{},request：{}", token, request);
+                LOGGER.warn("request：{}  token验证失败:{}", request.getRequestURL(), token);
                 chain.doFilter(request, response);
             }
         } else {
-            LOGGER.warn("token为空或者格式错误：{},request：{}", token, request);
+            LOGGER.warn("request：{}  token格式错误:{}", request.getRequestURL(), token);
             chain.doFilter(request, response);
         }
 

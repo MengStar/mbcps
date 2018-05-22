@@ -2,6 +2,7 @@ package meng.xing.gateway.security;
 
 
 import meng.xing.common.User.ResponseUser;
+import meng.xing.common.User.RoleType;
 import meng.xing.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * UserDetailsService的实现，根据用户名返回UserDetails
@@ -24,6 +27,7 @@ public class UserDetailsServiceIml implements UserDetailsService {
     }
 
     public Optional<UserDetails> loadUserByToken(String token) {
+        System.out.println(111111111);
         ResponseUser responseUser = userService.findUserByToken(token);
         if (responseUser.isEmpty()) return Optional.empty();
         return Optional.of(new UserDetailsIml(responseUser));

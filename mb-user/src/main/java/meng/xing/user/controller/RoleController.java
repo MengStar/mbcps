@@ -35,7 +35,7 @@ public class RoleController {
     }
 
     @ApiOperation(value = "角色集合", notes = "返回全部角色集合")
-    @GetMapping("/")
+    @GetMapping
     public Set<Role> roles() {
 //        try {
 //            TimeUnit.SECONDS.sleep(10L);
@@ -47,7 +47,7 @@ public class RoleController {
         return roles;
     }
 
-    @PostMapping("/{username}/")
+    @PostMapping("/{username}")
     @ApiOperation(value = "设置用户角色", notes = "以角色集合中的角色为准")
     public ResponseUser setRoles(@PathVariable("username") String username, @RequestBody Set<RoleType> roles) {
         Optional<User> optionalUser = userService.findUser(username);

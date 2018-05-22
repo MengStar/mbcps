@@ -5,6 +5,7 @@ import com.netflix.zuul.context.RequestContext;
 import meng.xing.common.User.RoleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,22 +37,29 @@ public class ZuulConfiguration extends ZuulFilter {
         return true;
     }
 
+    @Value("${zuul.prefix}")
+    private String prefix;
+
     @Override
-    public Object run()   {
+    public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         HttpServletRequest request = ctx.getRequest();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LOGGER.info("当前用户拥有的权限：{}", authentication.getAuthorities());
 
-        if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith("/mb-user/role"))
+        if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith(prefix + "/auth/role")) {
+            LOGGER.info("允许访问：{}", request.getRequestURL());
             return null;
-        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith("/mb-user/user/login/") ||
-                request.getRequestURI().startsWith("/mb-user/user/register/")))
+        }
+        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith(prefix + "/auth/user/login") ||
+                request.getRequestURI().startsWith(prefix + "/auth/user/register"))) {
+            LOGGER.info("允许访问：{}", request.getRequestURL());
             return null;
-        // TODO: 2018/5/15 完善权限过滤 
+        }
+        // TODO: 2018/5/15 完善权限过滤
         LOGGER.info("send {} request to {}", request.getMethod(), request.getRequestURL().toString());
-        LOGGER.info("无权访问：{}", request.getRequestURI());
+        LOGGER.info("无权访问：{}", request.getRequestURL());
         ctx.setSendZuulResponse(false);
         ctx.setResponseStatusCode(403);
         ctx.setResponseBody("{\"result\":\"没有权限!\"}");

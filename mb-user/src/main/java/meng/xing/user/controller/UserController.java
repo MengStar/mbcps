@@ -36,7 +36,7 @@ public class UserController {
 
     @ApiOperation(value = "注册用户", notes = "用户名不能重复。若为子账号，主账号用户名不存在会注册失败。")
     @ApiImplicitParams(@ApiImplicitParam(dataType = "RequestUser", name = "requestUser", value = "用户信息", required = true))
-    @PostMapping("/register/")
+    @PostMapping("/register")
     public ResponseUser register(@RequestBody @Validated RequestUser requestUser) {
 
         LOGGER.info("注册用户开始：{}", requestUser);
@@ -74,7 +74,7 @@ public class UserController {
         return User2ResponseUser.transfer(user, "", 1, "修改用户成功");
     }
 
-    @PostMapping("/login/")
+    @PostMapping("/login")
     public ResponseUser login(@RequestBody @Validated RequestUsernamePassword requestUsernamePassword) {
         Optional<User> optionalUser = userService.findUser(requestUsernamePassword.getUsername());
         if (!optionalUser.isPresent()) {
@@ -92,7 +92,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/validate/{token}/")
+    @GetMapping("/validate/{token}")
     public ResponseUser validate(@PathVariable("token") String token) {
         LOGGER.info("验证token：{}", token);
         Optional<User> optionalUser = tokenService.getUserByToken(token);
@@ -100,7 +100,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取子账号信息", notes = "依据主账号的用户名获取子账号信息")
-    @GetMapping("/{mainUsername}/subUsers/")
+    @GetMapping("/subUsers/{mainUsername}")
     public Set<ResponseUser> subUsers(@PathVariable("mainUsername") String mainUsername) {
         LOGGER.info("获取子账号信息开始,mainUsername:{}", mainUsername);
         Set<User> subUsers = userService.findSubUsers(mainUsername);
@@ -115,7 +115,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户信息", notes = "根据用户名获取信息")
-    @GetMapping("/{username}/")
+    @GetMapping("/info/{username}")
     public ResponseUser user(@PathVariable("username") String username) {
         LOGGER.info("获取账号信息开始,username:{}", username);
         Optional<User> user = userService.findUser(username);
