@@ -24,8 +24,8 @@ public class ResponseUser extends MbResponse {
     private boolean main;
     @ApiModelProperty(value = "主账号姓名，子账号时生效")
     private String mainUsername;
-    @ApiModelProperty(value = "权限列表")
-    private Set<RoleType> roles;
+    @ApiModelProperty(value = "用户权限")
+    private String role;
 
     @ApiModelProperty(value = "登录用的token")
     private String token;

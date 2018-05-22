@@ -1,12 +1,16 @@
 package meng.xing.gateway.security;
 
+import com.sun.tools.classfile.Opcode;
 import meng.xing.common.User.ResponseUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -25,11 +29,10 @@ public class UserDetailsIml implements UserDetails {
         nickname = responseUser.getNickname();
         isMain = responseUser.isMain();
         mainUsername = responseUser.getMainUsername();
-        if (responseUser.getRoles().isEmpty())
-            authorities = AuthorityUtils.NO_AUTHORITIES;
-        else {
-            authorities = responseUser.getRoles().stream().map(Enum::toString).map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
-        }
+        Set<GrantedAuthority> roleSet = new HashSet<>();
+        roleSet.add(new SimpleGrantedAuthority(responseUser.getRole()));
+        authorities = roleSet;
+
     }
 
     //返回分配给用户的角色列表
