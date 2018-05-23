@@ -20,7 +20,6 @@ import java.util.Set;
 //import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/role")
 public class RoleController {
     private final RoleService roleService;
     private final CacheTokenService tokenService;
@@ -33,7 +32,7 @@ public class RoleController {
         this.tokenService = tokenService;
         this.userService = userService;
     }
-
+    @RequestMapping("/roles")
     @ApiOperation(value = "角色集合", notes = "返回全部角色集合")
     @GetMapping
     public Set<Role> roles() {
@@ -47,7 +46,7 @@ public class RoleController {
         return roles;
     }
 
-    @PostMapping("/{username}")
+    @PostMapping("/profile/edit/roles/{username}")
     @ApiOperation(value = "设置用户角色", notes = "以角色集合中的角色为准")
     public ResponseUser setRoles(@PathVariable("username") String username, @RequestBody Set<RoleType> roles) {
         Optional<User> optionalUser = userService.findUser(username);

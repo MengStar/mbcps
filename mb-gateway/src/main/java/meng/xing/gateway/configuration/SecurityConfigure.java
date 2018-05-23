@@ -54,7 +54,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 //解决跨域响应OPTIONS请求问题
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 登录不验证权限
-                .antMatchers(HttpMethod.POST, prefix + "/auth/user/register", prefix + "/auth/user/login").permitAll()
+                .antMatchers(HttpMethod.POST, prefix + "/auth/register/account", prefix + "/auth/login/account").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
         // 禁用缓存

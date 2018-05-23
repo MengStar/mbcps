@@ -48,12 +48,12 @@ public class ZuulConfiguration extends ZuulFilter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LOGGER.info("当前用户拥有的权限：{}", authentication.getAuthorities());
 
-        if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith(prefix + "/auth/role")) {
+        if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith(prefix + "/auth/roles")) {
             LOGGER.info("允许访问：{}", request.getRequestURL());
             return null;
         }
-        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith(prefix + "/auth/user/login") ||
-                request.getRequestURI().startsWith(prefix + "/auth/user/register"))) {
+        if (request.getMethod().equals(HttpMethod.POST.toString()) && (request.getRequestURI().startsWith(prefix + "/auth/login/account") ||
+                request.getRequestURI().startsWith(prefix + "/auth/register/account"))) {
             LOGGER.info("允许访问：{}", request.getRequestURL());
             return null;
         }
