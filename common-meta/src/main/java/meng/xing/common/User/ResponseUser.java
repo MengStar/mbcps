@@ -14,7 +14,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class ResponseUser extends MbResponse {
     @ApiModelProperty(value = "用户姓名")
     private String username;
@@ -30,12 +29,21 @@ public class ResponseUser extends MbResponse {
     @ApiModelProperty(value = "登录用的token")
     private String token;
 
+    private String password = "";
 
     @JsonIgnore
     public Boolean isEmpty() {
         return username == null || nickname == null;
     }
+    public ResponseUser(String username, String nickname, boolean isMain,String mainUsername, String role, String token){
 
+        this.username = username;
+        this.nickname = nickname;
+        main = isMain;
+        this.mainUsername = mainUsername;
+        this.role = role;
+        this.token = token;
+    }
     public void setCode(int code, String msg) {
         this.code = code;
         this.msg = msg;

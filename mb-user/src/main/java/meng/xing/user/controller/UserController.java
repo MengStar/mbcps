@@ -121,7 +121,7 @@ public class UserController {
         ResponseUser responseUser;
         if (!user.isPresent()) {
             responseUser = User2ResponseUser.transfer(new User(), "", -1, "");
-            LOGGER.info("获取账号信息结束{}", responseUser);
+            LOGGER.warn("获取账号信息结束{}", responseUser);
             return responseUser;
         } else {
             responseUser = User2ResponseUser.transfer(user.get(), "", 1, "");
@@ -130,6 +130,23 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "用户信息(密码)", notes = "根据用户名获取信息")
+    @GetMapping("/profile/basicWithPass/{username}")
+    public ResponseUser userbyPass(@PathVariable("username") String username) {
+        LOGGER.info("获取账号密码信息开始,username:{}", username);
+        Optional<User> user = userService.findUser(username);
+        ResponseUser responseUser;
+        if (!user.isPresent()) {
+            responseUser = User2ResponseUser.transfer(new User(), "", -1, "");
+            LOGGER.warn("获取账号信息结束{}", responseUser);
+            return responseUser;
+        } else {
+            responseUser = User2ResponseUser.transfer(user.get(), "", 1, "");
+            responseUser.setPassword(user.get().getPassword());
+            LOGGER.info("获取账号密码信息结束{}", responseUser);
+            return responseUser;
+        }
+    }
 
 }
 
