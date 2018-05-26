@@ -1,17 +1,13 @@
 package meng.xing.gateway.security;
 
-import com.sun.tools.classfile.Opcode;
 import meng.xing.common.User.ResponseUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * UserDetails的实现类，可以定义一系列验证

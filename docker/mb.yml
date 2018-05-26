@@ -12,6 +12,18 @@ services:
       - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
       - CONFIG_HOST=server
       - CONFIG_POST=8788
+  user:
+    image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-user
+    deploy:
+      replicas: 1
+    networks:
+      - springcloud-overlay
+    ports:
+      - "8401:8401"
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+      - CONFIG_HOST=server
+      - CONFIG_POST=8788
 networks:
   springcloud-overlay:
     external:
