@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(value = "mb-user", fallback = UserServiceFallback.class )
 public interface UserService {
-    @RequestMapping(method = RequestMethod.GET, value = "/validate/{token}", consumes = "application.yml/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/validate/{token}")
     ResponseUser findUserByToken(@PathVariable("token") String token);
 }
 

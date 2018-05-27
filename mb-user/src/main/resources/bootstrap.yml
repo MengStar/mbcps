@@ -1,4 +1,6 @@
 spring:
+    application:
+        name: mb-user
     jpa:
       database: mysql
       show-sql: true
@@ -10,8 +12,6 @@ spring:
       username: root
       password: password
       driver-class-name: com.mysql.jdbc.Driver
-    application:
-        name: mb-user
     cloud:
       config:
           uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8788}/

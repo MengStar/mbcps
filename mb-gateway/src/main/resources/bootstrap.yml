@@ -9,11 +9,13 @@ spring:
               multiplier: 2 # 间隔乘数
               max-interval: 8000 # 最大间隔时间
               max-attempts: 8 # 最大尝试次数
-#            name: gateway
-#            profile: dev
+
 #路由配置
 zuul:
   prefix: /api
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
   routes:
     mb-test:
       path: /mb-test/**
@@ -21,6 +23,15 @@ zuul:
     mb-user:
       path: /auth/**
       serviceId: mb-user
+    baidu:
+      path: /baidu
+      url: http://www.baidu.com
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: mb-user
+
 
 server:
     port: 8400
@@ -33,19 +44,14 @@ server:
     tomcat:
         max-threads: 200
         max-connections: 200
+
+
 logging:
     file: log/mb-gateway.log
 
 jwt:
     header: Authorization
     tokenHead: MB-
-#这个版本feign不能配置！！！
-#feign:
-#  client:
-#    config:
-#      default:
-#        connectTimeout: 5000
-#        readTimeout: 5000
-#        loggerLevel: basic
-#  hystrix:
-#    enabled: true
+
+
+

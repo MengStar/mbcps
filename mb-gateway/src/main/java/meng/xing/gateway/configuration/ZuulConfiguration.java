@@ -47,7 +47,10 @@ public class ZuulConfiguration extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LOGGER.info("当前用户拥有的权限：{}", authentication.getAuthorities());
-
+        if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().equals(prefix + "/baidu")) {
+            LOGGER.info("允许访问：{}", request.getRequestURL());
+            return null;
+        }
         if (request.getMethod().equals(HttpMethod.GET.toString()) && request.getRequestURI().startsWith(prefix + "/auth/roles")) {
             LOGGER.info("允许访问：{}", request.getRequestURL());
             return null;
@@ -63,7 +66,7 @@ public class ZuulConfiguration extends ZuulFilter {
         ctx.setSendZuulResponse(false);
         ctx.setResponseStatusCode(403);
         ctx.setResponseBody("{\"result\":\"没有权限!\"}");
-        ctx.getResponse().setContentType("application.yml/json;charset=UTF-8");
+        ctx.getResponse().setContentType("bootstrap.yml/json;charset=UTF-8");
         return null;
     }
 

@@ -12,6 +12,9 @@ services:
       - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
       - CONFIG_HOST=server
       - CONFIG_POST=8788
+    depends_on:
+      - user
+
   user:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-user
     deploy:

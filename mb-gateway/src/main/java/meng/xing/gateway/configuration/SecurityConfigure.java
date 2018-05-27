@@ -44,7 +44,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
-                        "/test",
+                        "/api/baidu",
                         "/*.html",
                         "/favicon.ico",
                         "/**/*.html",
