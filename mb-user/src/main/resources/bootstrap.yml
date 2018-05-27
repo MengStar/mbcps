@@ -8,7 +8,7 @@ spring:
         ddl-auto: update
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #设置innodb
     datasource:
-      url: jdbc:mysql://aliyun.com:3306/mbcps?characterEncoding=UTF-8
+      url: jdbc:mysql://13.78.36.172:3306/mbcps?characterEncoding=UTF-8
       username: root
       password: password
       driver-class-name: com.mysql.jdbc.Driver
@@ -25,7 +25,7 @@ spring:
           time-to-live: 5m
         type: redis
     redis:
-        host: aliyun.com
+        host: 13.78.36.172
         port: 6379
         timeout: 5s
         database: 0
