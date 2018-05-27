@@ -3,7 +3,7 @@ services:
   gateway:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-gateway
     deploy:
-      replicas: 1
+      replicas: 2
     networks:
       - springcloud-overlay
     ports:
