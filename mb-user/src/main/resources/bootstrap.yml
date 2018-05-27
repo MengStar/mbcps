@@ -53,11 +53,11 @@ jwt:
     expiration: 36000
     secret: liuxing
 
-
-
-#my_server:
-#  port: 8403
-#  maxConnections: 2000
-#  maxThreads: 200
-#  connectionTimeout: 10000
-#  keepAliveTimeout: 100000
+---
+#本地开发环境，ip优先，兼容gateway在docker上
+spring:
+  profiles: dev
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    prefer-ip-address: true
