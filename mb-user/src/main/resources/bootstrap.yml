@@ -29,6 +29,12 @@ spring:
         port: 6379
         timeout: 5s
         database: 0
+#非常重要，否则在docker-swarm下无法被连接
+eureka:
+  instance:
+    hostname: user
+    non-secure-port: ${server.port}
+
 logging:
     file: log/mb-user.log
 server:
@@ -46,6 +52,7 @@ jwt:
     tokenHead: MB-
     expiration: 36000
     secret: liuxing
+
 
 
 #my_server:

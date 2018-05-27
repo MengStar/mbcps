@@ -7,4 +7,5 @@ mvn install &&
 cd mb-center && mvn clean package docker:build && cd ../ &&
 cd mb-config && mvn clean package docker:build && cd ../ &&
 cd mb-gateway && mvn clean package docker:build && cd ../ &&
+cd mb-user && mvn clean package docker:build && cd ../ &&
 docker images
