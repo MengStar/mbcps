@@ -32,6 +32,7 @@ zuul:
     baidu:
       path: /baidu
       url: http://www.baidu.com
+  retryable: true
 
 ribbon:
   eager-load:
