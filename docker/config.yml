@@ -1,6 +1,6 @@
 version: '3'
 services:
-  server:
+  config:
     image: registry.cn-hangzhou.aliyuncs.com/mengstar/mb-config
     deploy:
       replicas: 1

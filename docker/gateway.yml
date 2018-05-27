@@ -10,7 +10,7 @@ services:
       - "8400:8400"
     environment:
       - EUREKA_SERVER_ADDRESS=http://eureka2:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
-      - CONFIG_HOST=server
+      - CONFIG_HOST=config
       - CONFIG_POST=8788
 networks:
   springcloud-overlay:

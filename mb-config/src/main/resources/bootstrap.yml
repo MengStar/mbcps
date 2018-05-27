@@ -8,7 +8,10 @@ spring:
             uri: https://github.com/MengStar/mbcps-config.git
 server:
   port: 8788
-
+eureka:
+  instance:
+    hostname: config
+    non-secure-port: ${server.port}
 eureka:
   client:
     serviceUrl:

@@ -10,6 +10,12 @@ spring:
               max-interval: 8000 # 最大间隔时间
               max-attempts: 8 # 最大尝试次数
 
+
+eureka:
+  instance:
+    hostname: gateway
+    non-secure-port: ${server.port}
+
 #路由配置
 zuul:
   prefix: /api
