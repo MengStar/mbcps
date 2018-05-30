@@ -3,7 +3,7 @@ spring:
     name: mb-user
   cloud:
     config:
-      uri: http://${CONFIG_HOST:127.0.0.1}:${CONFIG_POST:8788}/
+      uri: http://${CONFIG_HOST:azure.com}:${CONFIG_POST:8788}/
       fail-fast: true # 开启之后可以快速重试
       retry:
         multiplier: 2 # 间隔乘数
@@ -11,6 +11,11 @@ spring:
         max-attempts: 8
   data:
     mongodb:
+#      host: mengstar.documents.azure.com
+#      port: 10255
+#      username: mengstar
+#      password: AvGN0qZjrt4Oq6bb6KstOrxe1IoXumV4uJh7T2r2uwGznTzbvAAylYHNIa5l4cQIafqlggFyI1x4vvak2hYQjA==
+#      authentication-database: mb
       uri: mongodb://aliyun.com/mb
 
 server:
