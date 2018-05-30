@@ -25,10 +25,17 @@ spring:
           time-to-live: 5m
         type: redis
     redis:
-        host: 13.78.36.172
-        port: 6379
-        timeout: 5s
-        database: 0
+      ssl: true
+      host: mengstar.redis.cache.windows.net
+      port: 6380
+      password: 5LwB6n71nNMTvD4StR7nVwtC14nK+HDzbMgFd7aHIfg=
+
+#    redis:
+#        host: 13.78.36.172
+#        port: 6379
+#        timeout: 5s
+#        database: 0
+
 #非常重要，否则在docker-swarm下无法被连接
 eureka:
   instance:
