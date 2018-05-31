@@ -11,12 +11,7 @@ spring:
         max-attempts: 8
   data:
     mongodb:
-#      host: mengstar.documents.azure.com
-#      port: 10255
-#      username: mengstar
-#      password: AvGN0qZjrt4Oq6bb6KstOrxe1IoXumV4uJh7T2r2uwGznTzbvAAylYHNIa5l4cQIafqlggFyI1x4vvak2hYQjA==
-#      authentication-database: mb
-      uri: mongodb://aliyun.com/mb
+      uri: mongodb://azure.com/mb
 
 server:
   port: 8402
